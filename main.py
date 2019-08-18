@@ -1,18 +1,18 @@
-import pandas as pd
-import numpy as np
+#!/usr/bin/env python3
 
-def load_data():
-    df = pd.read_csv('~/Downloads/judge-1377884607_tweet_product_company.csv', usecols=['tweet_text', 'sentiment'], encoding='latin-1')
-
-    df['sentiment'] = df.sentiment.apply(lambda x: 'neutral' if x == 'No emotion toward brand or product' 
-                                             else 'positive' if x == 'Positive emotion' 
-                                             else 'negative' if x == 'Negative emotion' 
-                                             else np.nan)
-    df = df.dropna()
-    df['sentiment'] = df.sentiment.map({'negative':-1, 'neutral':0, 'positive':1})
-    return df
+from helper import Helper
+import string
+import warnings
+warnings.filterwarnings('ignore')
+helper = Helper()
 
 
 if __name__ == '__main__':
-    data = load_data()
-    print(data.sample(2))
+	data = helper.load_data()    
+	sample_data = data.tweet_text.sample(2)
+	cleaned_data, tweets = helper.clean_tweets(sample_data)
+
+	for line in tweets:
+		print(line)
+	for line in cleaned_data:
+		print(line)
