@@ -1,0 +1,3 @@
+pandas
+numpy
+ekphrasis=0.5.1
