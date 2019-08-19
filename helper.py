@@ -1,10 +1,13 @@
 import pandas as pd
 import numpy as np
 import string
+import nltk
 from ekphrasis.classes.preprocessor import TextPreProcessor
 from ekphrasis.classes.tokenizer import SocialTokenizer
 from ekphrasis.dicts.emoticons import emoticons
+from ekphrasis.classes.spellcorrect import SpellCorrector
 from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
 
 
 class Helper:
@@ -24,50 +27,56 @@ class Helper:
 	def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
 		'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated", "repeated",
 		'emphasis', 'censored'}, fix_html=True, segmenter="twitter", corrector="twitter", unpack_hashtags=True,
-		unpack_contractions=True, spell_correct_elong=True, tokenizer=SocialTokenizer(lowercase=True),
+		unpack_contractions=True, spell_correct_elong=True, tokenizer=SocialTokenizer(lowercase=True).tokenize,
 		dicts=[emoticons]):
 		text_processor = TextPreProcessor(
-			unpack_contractions=unpack_contractions,
 			normalize=normalize,
 			annotate=annotate,
 			fix_html=fix_html,
-			segmenter=segmenter,
-			corrector=corrector,
-			unpack_hashtags=unpack_hashtags,
 			spell_correct_elong=spell_correct_elong,
+			unpack_contractions=True,
+			unpack_hashtags=unpack_hashtags,
+			tokenizer=tokenizer,
 			spell_correction=True,
-			tokenizer=tokenizer.tokenize,
-			dicts=dicts,
-			remove_tags=True
+			corrector='english',
+			segmenter=segmenter,
+			dicts=dicts
 		)
 		return text_processor
 
-
-	def tokenize_txt(self, txt):
+	def tokenize_tweets(self, txt):
 		tokenizer = Tokenizer()
 		tokenizer.fit_on_texts(txt)
-		corpus = tokenizer.texts_to_sequences(txt)
-		return corpus
+		total_words = len(tokenizer.word_index) + 1
+		input_seq = tokenizer.texts_to_sequences(txt)
+		return input_seq, total_words
 
-	def clean_text(self, txt):
+	def clean_tweets(self, txt):
 		string_punc = [char for char in string.punctuation if char not in ['#', '{', '}', "'"]]
-		txt = ''.join(v for v in txt if v not in string_punc).lower()
+		txt = ''.join(v for v in txt if v not in string_punc)
 		txt = txt.encode('utf8').decode('ascii', 'ignore')
 		return txt
 
-	def clean_tweets(self, tweets):
+	def preprocess_tweets(self, tweets):
 		text_processor = self.create_preprocessing_pipeline()
-		tweets =	[self.clean_text(tweet) for tweet in tweets]
-		cleaned_text = []
-		
-		for tweet in tweets:
+		cleaned_tweets = []
+		if len(tweets) > 1:
+			tweets = [self.clean_tweets(tweet) for tweet in tweets]
+			for tweet in tweets:
+				clean_tweet = text_processor.pre_process_doc(tweet)
+				cleaned_tweets.append(clean_tweet)
+			return cleaned_tweets
+		else:
+			tweet = self.clean_tweets(tweets)
 			clean_tweet = text_processor.pre_process_doc(tweet)
-			cleaned_text.append(clean_tweet)
-			
-		return cleaned_text, tweets
+			return clean_tweet	
 
-	def pad_sequences(self):
-		pass
+	def get_padded_seq(self, input_seq):
+		maxlen = max([len(seq) for seq in input_seq])
+		padded_seq =	pad_sequences(input_seq, maxlen=maxlen, padding='pre') 
+		return padded_seq
+
+
 
 
     
