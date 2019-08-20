@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import string
@@ -23,6 +24,31 @@ class Helper:
 		df = df.dropna()
 		df['sentiment'] = df.sentiment.map({'negative':-1, 'neutral':0, 'positive':1})
 		return df
+
+	def loadGloveModel(self, dimension='100'):
+		print('Loading glove model...')
+		model = {}
+		with open(f'../data/datastories.twitter.{dimension}d.txt', 'r') as f:
+			for line in f:
+				splitLine = line.split()
+				word = splitLine[0]
+				embedding = np.array([float(val) for val in splitLine[1:]])
+				model[word] = embedding
+		print(f'Done! {len(model)} words loaded!')
+		return model
+
+	def load_training_data(self):
+		files_path = '../data/downloaded/'
+		data = pd.read_csv(os.path.join(files_path, 'twitter-2013dev-A.tsv'), delimiter='\t', encoding='utf-8')
+		return data
+
+	def name_cols_in_training_data(self):
+		files_path = '../data/downloaded/'
+		for fname in os.listdir(files_path):
+			df = pd.read_csv(os.path.join(files_path, fname), delimiter='\t', encoding='utf-8', header=None)
+			df.rename(columns={0:'number', 1:'sentiment', 2:'tweet_text'}, inplace=True)
+			df.to_csv(os.path.join(files_path, str('new_' + fname)), index=False)
+		print('Dataframe column names are changed!')
 
 	def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
 		'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated", "repeated",
