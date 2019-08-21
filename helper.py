@@ -39,8 +39,19 @@ class Helper:
 
 	def load_training_data(self):
 		files_path = '../data/downloaded/'
-		data = pd.read_csv(os.path.join(files_path, 'twitter-2013dev-A.tsv'), delimiter='\t', encoding='utf-8')
+		data = []
+		for fname in os.listdir(os.path.join(files_path)):
+			if 'new_' in fname:
+					df = pd.read_csv(os.path.join(files_path, fname), encoding='utf-8')
+					df = df[['sentiment', 'tweet_text']]
+					df['sentiment'] = df.sentiment.map({'negative':-1, 'neutral':0, 'positive':1})
+					df.dropna()
+					data.append(df)
+			else:
+				continue
+		data = pd.concat(data, ignore_index=True)
 		return data
+
 
 	def name_cols_in_training_data(self):
 		files_path = '../data/downloaded/'
