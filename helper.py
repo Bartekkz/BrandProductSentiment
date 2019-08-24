@@ -89,7 +89,7 @@ class Helper:
 		return input_seq, total_words
 
 	def clean_tweets(self, txt):
-		string_punc = [char for char in string.punctuation if char not in ['#', '{', '}', "'"]]
+		string_punc = [char for char in string.punctuation if char not in ['#', '{', '}', "'", ':', ')', '(']]
 		txt = ''.join(v for v in txt if v not in string_punc)
 		txt = txt.encode('utf8').decode('ascii', 'ignore')
 		return txt
@@ -97,17 +97,17 @@ class Helper:
 	def preprocess_tweets(self, tweets):
 		text_processor = self.create_preprocessing_pipeline()
 		cleaned_tweets = []
-		if len(tweets) > 1:
+		if type(tweets) == list:
 			tweets = [self.clean_tweets(tweet) for tweet in tweets]
-			for tweet in tweets:
+			for tweet in tweets:                
 				clean_tweet = text_processor.pre_process_doc(tweet)
 				cleaned_tweets.append(clean_tweet)
 			return cleaned_tweets
 		else:
-			tweet = self.clean_tweets(tweets)
-			clean_tweet = text_processor.pre_process_doc(tweet)
-			return clean_tweet	
-
+				tweet = self.clean_tweets(tweets)
+				clean_tweet = text_processor.pre_process_doc(tweet)
+				return clean_tweet	
+    
 	def get_padded_seq(self, input_seq):
 		maxlen = max([len(seq) for seq in input_seq])
 		padded_seq =	pad_sequences(input_seq, maxlen=maxlen, padding='pre') 
