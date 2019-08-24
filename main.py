@@ -21,9 +21,16 @@ if __name__ == '__main__':
     #print(glove_model['hello'])
     #data = helper.load_training_data()
     
-    data = helper.preprocess_tweets(['HeLLo, What is Up? #lifestyle :).', 'HEllo...'])
-    for tweet in data:
-        print(tweet)
+    data = helper.preprocess_tweets(['HeLLo, What is Up? #lifestyle :).', 'Hello'])
+    input_seq = helper.tokenize_tweets(data)
+    padded = helper.get_padded_seq(input_seq)
+    print(padded)
+   
+    #print(input_seq)
+    #for seq in input_seq:
+    #    print(seq)
+    #padded = helper.get_padded_seq(input_seq)
+    #print(padded)
      
 
 

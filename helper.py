@@ -81,13 +81,6 @@ class Helper:
 		)
 		return text_processor
 
-	def tokenize_tweets(self, txt):
-		tokenizer = Tokenizer()
-		tokenizer.fit_on_texts(txt)
-		total_words = len(tokenizer.word_index) + 1
-		input_seq = tokenizer.texts_to_sequences(txt)
-		return input_seq, total_words
-
 	def clean_tweets(self, txt):
 		string_punc = [char for char in string.punctuation if char not in ['#', '{', '}', "'", ':', ')', '(']]
 		txt = ''.join(v for v in txt if v not in string_punc)
@@ -100,13 +93,21 @@ class Helper:
 		if type(tweets) == list:
 			tweets = [self.clean_tweets(tweet) for tweet in tweets]
 			for tweet in tweets:                
+				
 				clean_tweet = text_processor.pre_process_doc(tweet)
 				cleaned_tweets.append(clean_tweet)
 			return cleaned_tweets
 		else:
 				tweet = self.clean_tweets(tweets)
 				clean_tweet = text_processor.pre_process_doc(tweet)
+				clean_tweet = [' '.join(word for word in clean_tweet)]
 				return clean_tweet	
+
+	def tokenize_tweets(self, tweets):
+		tokenizer = Tokenizer()
+		tokenizer.fit_on_texts(tweets)
+		input_seq = tokenizer.texts_to_sequences(tweets)
+		return input_seq 
     
 	def get_padded_seq(self, input_seq):
 		maxlen = max([len(seq) for seq in input_seq])
