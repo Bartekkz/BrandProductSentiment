@@ -19,23 +19,12 @@ if __name__ == '__main__':
     #padded_seq = helper.get_padded_seq(input_seq)
     #glove_model = helper.loadGloveModel()
     #print(glove_model['hello'])
-    #data = helper.load_training_data()
-    
-    data = helper.preprocess_tweets(['HeLLo, What is Up? #lifestyle :).', 'Hello'])
-    input_seq = helper.tokenize_tweets(data)
-    padded = helper.get_padded_seq(input_seq)
-    print(padded)
-   
-    #print(input_seq)
-    #for seq in input_seq:
-    #    print(seq)
-    #padded = helper.get_padded_seq(input_seq)
-    #print(padded)
-     
-
+    tweet = ['hello! WhAt is goin? on #angel :)', 'fuck u hehe :(']
+    tweet = helper.preprocess_tweets(tweet)
+    print(tweet)
 
 '''
 TODO:
   - change helper.clean_tweets function with re  
-  - fix helper.clean_tweets function for single tweet
+
 '''

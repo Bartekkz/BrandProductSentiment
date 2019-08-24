@@ -37,7 +37,7 @@ class Helper:
 		print(f'Done! {len(model)} words loaded!')
 		return model
 
-	def load_training_data(self):
+	def load_training_data(self, divide=True):
 		files_path = '../data/downloaded/'
 		data = []
 		for fname in os.listdir(os.path.join(files_path)):
@@ -50,6 +50,10 @@ class Helper:
 			else:
 				continue
 		data = pd.concat(data, ignore_index=True)
+		if divide:
+			tweets = data.tweet_text.tolist()
+			labels = data.sentiment.values
+			return tweets, labels
 		return data
 
 
@@ -82,8 +86,7 @@ class Helper:
 		return text_processor
 
 	def clean_tweets(self, txt):
-		string_punc = [char for char in string.punctuation if char not in ['#', '{', '}', "'", ':', ')', '(']]
-		txt = ''.join(v for v in txt if v not in string_punc)
+		txt = ''.join(v for v in txt if v not in string.punctuation)
 		txt = txt.encode('utf8').decode('ascii', 'ignore')
 		return txt
 
@@ -91,17 +94,18 @@ class Helper:
 		text_processor = self.create_preprocessing_pipeline()
 		cleaned_tweets = []
 		if type(tweets) == list:
-			tweets = [self.clean_tweets(tweet) for tweet in tweets]
-			for tweet in tweets:                
-				
+			for tweet in tweets:                				
 				clean_tweet = text_processor.pre_process_doc(tweet)
+				clean_tweet = ' '.join(word for word in clean_tweet)
+				clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
 				cleaned_tweets.append(clean_tweet)
-			return cleaned_tweets
+			return cleaned_tweets 
+
 		else:
-				tweet = self.clean_tweets(tweets)
-				clean_tweet = text_processor.pre_process_doc(tweet)
-				clean_tweet = [' '.join(word for word in clean_tweet)]
-				return clean_tweet	
+			clean_tweet = text_processor.pre_process_doc(tweets)
+			clean_tweet = ' '.join(word for word in clean_tweet)
+			clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
+			return clean_tweet 
 
 	def tokenize_tweets(self, tweets):
 		tokenizer = Tokenizer()
