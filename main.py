@@ -3,6 +3,7 @@
 from helper import Helper
 from keras.utils import to_categorical
 from network import Network
+import numpy as np
 import string
 import warnings
 warnings.filterwarnings('ignore')
@@ -21,7 +22,19 @@ if __name__ == '__main__':
     #print(glove_model['hello'])
     tweet = ['hello! WhAt is goin? on #angel :)', 'fuck u hehe :(']
     tweet = helper.preprocess_tweets(tweet)
-    print(tweet)
+    input_seq = helper.tokenize_tweets(tweet)
+    tweet1 = 'hello what is Goin> on #angel :)'
+    tweet1 = helper.preprocess_tweets(tweet1)
+    seq = helper.tokenize_tweets(tweet1)
+    helper.get_padded_seq(input_seq, 12, preprocess=False)
+    helper.get_padded_seq(seq, 12, preprocess=False)
+    helper.get_padded_seq('hello what is Goin> on #angel :)', 12, preprocess=True)
+    helper.get_padded_seq(['hello! WhAt is goin? on #angel :)', 'fuck u hehe :('], 12, preprocess=True)
+
+
+
+
+
 
 '''
 TODO:

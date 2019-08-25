@@ -56,7 +56,6 @@ class Helper:
 			return tweets, labels
 		return data
 
-
 	def name_cols_in_training_data(self):
 		files_path = '../data/downloaded/'
 		for fname in os.listdir(files_path):
@@ -100,24 +99,26 @@ class Helper:
 				clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
 				cleaned_tweets.append(clean_tweet)
 			return cleaned_tweets 
-
 		else:
 			clean_tweet = text_processor.pre_process_doc(tweets)
 			clean_tweet = ' '.join(word for word in clean_tweet)
 			clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
-			return clean_tweet 
+			return [clean_tweet]
 
 	def tokenize_tweets(self, tweets):
 		tokenizer = Tokenizer()
 		tokenizer.fit_on_texts(tweets)
 		input_seq = tokenizer.texts_to_sequences(tweets)
 		return input_seq 
-    
-	def get_padded_seq(self, input_seq):
-		maxlen = max([len(seq) for seq in input_seq])
-		padded_seq =	pad_sequences(input_seq, maxlen=maxlen, padding='pre') 
-		return padded_seq
-
+			
+	def get_padded_seq(self, data, maxlen, padding='pre', preprocess=True):
+		if preprocess:
+			tweets = self.preprocess_tweets(data)
+			input_seq = self.tokenize_tweets(tweets)
+		else:
+			input_seq = data
+		pad = pad_sequences(input_seq, maxlen=maxlen, padding=padding)
+		print(pad)
 
 
 
