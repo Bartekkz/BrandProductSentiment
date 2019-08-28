@@ -20,7 +20,7 @@ def load_data(self):
 def load_training_data(self, divide=True):
 	files_path = '../data/downloaded/'
 	data = []
-	for fname in os.listdir(os.path.join(files_path)):
+	for fname in os.listdir(os.path.abspath(files_path)):
 		if 'new_' in fname:
 				df = pd.read_csv(os.path.join(files_path, fname), encoding='utf-8')
 				df = df[['sentiment', 'tweet_text']]
@@ -40,9 +40,9 @@ def load_training_data(self, divide=True):
 def get_embeddings(corpus, dim):
 	vectors = WordVectorsManager('../data/', corpus=corpus, dim=dim, omit_non_english=True).read()
 	vocab_size = len(vectors)
-	print(vocab_size)
 
-def name_cols_in_training_data(self):
+
+def name_cols_in_training_data():
 	files_path = '../data/downloaded/'
 	for fname in os.listdir(files_path):
 		df = pd.read_csv(os.path.join(files_path, fname), delimiter='\t', encoding='utf-8', header=None)
