@@ -11,59 +11,7 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 
 
-class Helper:
-	def load_data(self):
-		df = pd.read_csv('~/Downloads/judge-1377884607_tweet_product_company.csv', 
-												usecols=['tweet_text', 'sentiment'], 
-												encoding='latin-1')
-
-		df['sentiment'] = df.sentiment.apply(lambda x: 'neutral' if x == 'No emotion toward brand or product' 
-																						else 'positive' if x == 'Positive emotion' 
-																						else 'negative' if x == 'Negative emotion' 
-																						else np.nan)
-		df = df.dropna()
-		df['sentiment'] = df.sentiment.map({'negative':-1, 'neutral':0, 'positive':1})
-		return df
-
-	def loadGloveModel(self, dimension='100'):
-		print('Loading glove model...')
-		model = {}
-		with open(f'../data/datastories.twitter.{dimension}d.txt', 'r') as f:
-			for line in f:
-				splitLine = line.split()
-				word = splitLine[0]
-				embedding = np.array([float(val) for val in splitLine[1:]])
-				model[word] = embedding
-		print(f'Done! {len(model)} words loaded!')
-		return model
-
-	def load_training_data(self, divide=True):
-		files_path = '../data/downloaded/'
-		data = []
-		for fname in os.listdir(os.path.join(files_path)):
-			if 'new_' in fname:
-					df = pd.read_csv(os.path.join(files_path, fname), encoding='utf-8')
-					df = df[['sentiment', 'tweet_text']]
-					df['sentiment'] = df.sentiment.map({'negative':-1, 'neutral':0, 'positive':1})
-					df.dropna()
-					data.append(df)
-			else:
-				continue
-		data = pd.concat(data, ignore_index=True)
-		if divide:
-			tweets = data.tweet_text.tolist()
-			labels = data.sentiment.values
-			return tweets, labels
-		return data
-
-	def name_cols_in_training_data(self):
-		files_path = '../data/downloaded/'
-		for fname in os.listdir(files_path):
-			df = pd.read_csv(os.path.join(files_path, fname), delimiter='\t', encoding='utf-8', header=None)
-			df.rename(columns={0:'number', 1:'sentiment', 2:'tweet_text'}, inplace=True)
-			df.to_csv(os.path.join(files_path, str('new_' + fname)), index=False)
-		print('Dataframe column names are changed!')
-
+class tweetsPreprocessor:
 	def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
 		'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated", "repeated",
 		'emphasis', 'censored'}, fix_html=True, segmenter="twitter", corrector="twitter", unpack_hashtags=True,
@@ -118,7 +66,7 @@ class Helper:
 		else:
 			input_seq = data
 		pad = pad_sequences(input_seq, maxlen=maxlen, padding=padding)
-		print(pad)
+		return pad
 
 
 
