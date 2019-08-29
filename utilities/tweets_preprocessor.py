@@ -13,7 +13,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 class tweetsPreprocessor:
 	def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
-		'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated", "repeated",
+		'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated",
 		'emphasis', 'censored'}, fix_html=True, segmenter="twitter", corrector="twitter", unpack_hashtags=True,
 		unpack_contractions=True, spell_correct_elong=True, tokenizer=SocialTokenizer(lowercase=True).tokenize,
 		dicts=[emoticons]):

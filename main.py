@@ -13,9 +13,10 @@ warnings.filterwarnings('ignore')
 preprocessor = tweetsPreprocessor()
 
 
-if __name__ == '__main__':
-  get_embeddings('datastories.twitter', 100)
 
+if __name__ == '__main__':
+    vectors = get_embeddings('glove.twitter.27B', 200)
+    print(type(vectors))
 
 
 
@@ -27,6 +28,6 @@ if __name__ == '__main__':
 
 '''
 TODO:
-  - change helper.clean_tweets function with re  
+  - change helper.clean_tweets function with re
 
 '''
