@@ -15,9 +15,13 @@ preprocessor = tweetsPreprocessor()
 
 
 if __name__ == '__main__':
-    vectors = get_embeddings('glove.twitter.27B', 200)
-    print(type(vectors))
-
+  tweets, labels = load_training_data()
+  tweets = tweets
+  tweets = preprocessor.preprocess_tweets(tweets)
+  tweets = preprocessor.tokenize_tweets(tweets)
+  print(tweets[0:2])
+  #vectors = get_embeddings('glove.twitter.27B', 200)
+  #print(vectors.keys())
 
 
 
