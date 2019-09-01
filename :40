@@ -60,27 +60,20 @@ class tweetsPreprocessor:
       return [clean_tweet]
 
 
-  def tokenize_tweets(self, tweets, labels=None, num_classes=3):
+  def tokenize_tweets(self, tweets, labels):
     tokenizer = Tokenizer()
     tokenizer.fit_on_texts(tweets)
     input_seq = tokenizer.texts_to_sequences(tweets)
-    if labels is not None: 
-      labels = to_categorical(labels, num_classes)
-      return input_seq, labels, tokenizer
-    return input_seq, tokenizer 
+    labels = to_
+    return input_seq, labels, tokenizer 
 
 
-  def get_padded_seq(self, tweets, maxlen, labels=None, padding='pre', preprocess=True):
+  def get_padded_seq(self, data, maxlen, padding='pre', preprocess=True):
     if preprocess:
-      tweets = self.preprocess_tweets(tweets)
-      if labels is not None:
-        input_seq, labels, tokenizer = self.tokenize_tweets(tweets, labels)
-        pad = pad_sequences(input_seq, maxlen=maxlen, padding=padding)
-        return pad, labels
-      else:
-        input_seq, tokenizer = self.tokenize_tweets(tweets)
+      tweets = self.preprocess_tweets(data)
+      input_seq = self.tokenize_tweets(tweets)
     else:
-      input_seq = tweets 
+      input_seq = data
     pad = pad_sequences(input_seq, maxlen=maxlen, padding=padding)
     return pad
 

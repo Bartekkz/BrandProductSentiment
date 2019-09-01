@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
-from keras.utils import to_categorical
-from network import Network
 import os
 import numpy as np
 import string
 import warnings
+from keras.utils import to_categorical
+from keras.layers import LSTM
 from utilities.tweets_preprocessor import tweetsPreprocessor
 from utilities.data_loader import load_data, load_training_data, get_embeddings
+from models.rnn_model import build_attention_rnn
+
 warnings.filterwarnings('ignore')
 
 preprocessor = tweetsPreprocessor()
@@ -16,12 +18,14 @@ preprocessor = tweetsPreprocessor()
 
 if __name__ == '__main__':
   tweets, labels = load_training_data()
-  tweets = tweets
-  tweets = preprocessor.preprocess_tweets(tweets)
-  tweets = preprocessor.tokenize_tweets(tweets)
-  print(tweets[0:2])
-  #vectors = get_embeddings('glove.twitter.27B', 200)
-  #print(vectors.keys())
+  padded, labels = preprocessor.get_padded_seq(tweets=tweets, labels=labels, maxlen=25) 
+  emb_matrix = np.zeros(shape=(10000, 100))
+  print('creating model...')
+  nn_model = build_attention_rnn(embeddings=emb_matrix, classes=3, maxlen=50, layer_type=LSTM, cells=150,
+      layers=2, bidirectional=True, layer_dropout_rnn=0.5, attention='simple', final_layer=False, dropout_final=0.5, 
+      dropout_attention=0.5, dropout_rnn=0.5, rec_dropout_rnn=0.5, clipnorm=1, lr=0.001, loss_l2=0.0001)
+
+  print(nn_model.summary())
 
 
 

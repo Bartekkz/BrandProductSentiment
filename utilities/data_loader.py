@@ -1,9 +1,11 @@
-import pandas as pd
+
 import time
 import os
 import numpy as np
+import pandas as pd
+from keras.preprocessing.text import Tokenizer
 from embeddings.word_vectors_manager import WordVectorsManager
-
+from utilities.tweets_preprocessor import tweetsPreprocessor
 
 def load_data():
   df = pd.read_csv('~/Downloads/judge-1377884607_tweet_product_company.csv',
@@ -40,20 +42,30 @@ def load_training_data(divide=True):
   return data
 
 
-def get_embeddings(corpus, dim):
-    curr_time = time.time()
-    vectors = WordVectorsManager('../data/', corpus=corpus, dim=dim, omit_non_english=True).read()
-    vocab_size = len(emb_matrix)
-    print(f'Loaded {vocab_size} word vectors.')
-    emb_matrix = np.zeros((10000, dim))
-    #for word, i in 
-    delta = time.time() - curr_time
-    if delta < 60:
-        print(f'Loading embeddings took: {delta} seconds')
+def get_embeddings(tweets, corpus, dim):
+  preprocessor = tweetsPreprocessor()
+  input_seq, tokenizer = preprocessor.tokenize_tweets(tweets)
+  curr_time = time.time()
+  emb_dict = WordVectorsManager('../data/', corpus=corpus, dim=dim, omit_non_english=True).read()
+  emb_matrix = np.zeros((10000, dim))
+  missed = 0
+  for word, i in tokenizer.word_index.items():
+    if i < 10000:
+      vect = emb_dict.get(word) 
+      if vect is not None:
+        emb_matrix[i] = vect
+      else:
+        missed += 1
     else:
-        print(f'Loading embeddings took: {int(delta/60)} minutes')
-    return emb_matrix
-
+      break
+  delta = time.time() - curr_time
+  if delta < 60:
+    print(f'Loading embeddings took: {delta} seconds')
+  else:
+    print(f'Loading embeddings took: {int(delta/60)} minutes')
+  print(f'Missed words: {missed}')
+  return emb_matrix
+  
 
 def name_cols_in_training_data():
         files_path = '../data/downloaded/'
