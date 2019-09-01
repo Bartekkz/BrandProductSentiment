@@ -21,7 +21,7 @@ def load_data():
   return df
 
 
-def load_training_data(divide=True):
+def load_training_data(num_samples, divide=True):
   files_path = '../data/downloaded/'
   data = []
   for fname in os.listdir(os.path.abspath(files_path)):
@@ -34,7 +34,10 @@ def load_training_data(divide=True):
     else:
       continue
   data = pd.concat(data, ignore_index=True)
-  data = data.sample(frac=1)
+  if num_samples > len(data):
+    data = data.sample(frac=1)
+  else:
+    data = data.sample(num_samples)
   if divide:
     tweets = data.tweet_text.tolist()
     labels = data.sentiment.values
