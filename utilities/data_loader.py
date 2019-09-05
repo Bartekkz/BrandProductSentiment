@@ -45,31 +45,23 @@ def load_training_data(num_samples, divide=True):
   return data
 
 
-def get_embeddings(tweets, corpus, dim):
-  preprocessor = tweetsPreprocessor()
-  input_seq, tokenizer = preprocessor.tokenize_tweets(tweets)
-  curr_time = time.time()
-  emb_dict = WordVectorsManager('../data/', corpus=corpus, dim=dim, omit_non_english=True).read()
-  emb_matrix = np.zeros((10000, dim))
-  missed = 0
-  for word, i in tokenizer.word_index.items():
-    if i < 10000:
-      vect = emb_dict.get(word) 
-      if vect is not None:
-        emb_matrix[i] = vect
-      else:
-        missed += 1
-    else:
-      break
-  delta = time.time() - curr_time
-  if delta < 60:
-    print(f'Loading embeddings took: {delta} seconds')
-  else:
-    print(f'Loading embeddings took: {int(delta/60)} minutes')
-  print(f'Missed words: {missed}')
-  return emb_matrix
-  
-
+def get_embeddings(corpus, dim):
+    vectors = WordVectorsManager(os.path.join(os.path.abspath('.'), 'embeddings'), corpus, 300).read()
+    vocab_size = len(vectors)
+    print(f'Loaded {vocab_size} vectors')
+    wv_map = {}
+    # Create embeddings matrix
+    emb_matrix = np.ndarray(shape=(vocab_size + 2, dim), dtype='float32')
+    for i, (word, vector) in enumerate(vectors.items()):
+        if len(vector) > 199:
+            pos = i + 1
+            wv_map[word] = pos
+            emb_matrix[pos] = vector
+    pos += 1
+    wv_map['<unk>'] = pos
+    emb_matrix[pos] = np.random.uniform(-0.05, 0.05, dim)
+    
+    return emb_matrix, wv_map
 def name_cols_in_training_data():
         files_path = '../data/downloaded/'
         for fname in os.listdir(files_path):

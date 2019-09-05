@@ -7,7 +7,7 @@ class WordVectorsManager:
   def __init__(self, data_path, corpus=None, dim=None, omit_non_english=True):
     self.data_path = data_path
     self.wv_fname = f'{corpus}.{str(dim)}d.txt'
-    self.parsed_fname = f'{corpus}.{str(dim)}.pickle'
+    self.parsed_fname = f'{corpus}.{str(dim)}d.pickle'
     self.corpus = corpus
     self.dim = dim
     self.omit_non_english = omit_non_english
