@@ -13,9 +13,9 @@ from keras.utils import to_categorical
 
 
 class tweetsPreprocessor:
-  def __init__(self):
+  def __init__(self, maxlen):
     self.preprocessor = self.create_preprocessing_pipeline()
-
+    self.maxlen = maxlen
 
   def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
     'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated",
@@ -46,7 +46,7 @@ class tweetsPreprocessor:
 
   def preprocess_tweets(self, tweets): 
     cleaned_tweets = []
-    if type(tweets) == list:
+    if isinstance(tweets, list):
       for tweet in tweets:                				
         clean_tweet = self.preprocessor.pre_process_doc(tweet)
         clean_tweet = ' '.join(word for word in clean_tweet)
@@ -70,18 +70,18 @@ class tweetsPreprocessor:
     return input_seq, tokenizer 
 
 
-  def get_padded_seq(self, tweets, maxlen, labels=None, padding='pre', preprocess=True):
+  def get_padded_seq(self, tweets, labels=None, padding='pre', preprocess=True):
     if preprocess:
       tweets = self.preprocess_tweets(tweets)
       if labels is not None:
         input_seq, labels, tokenizer = self.tokenize_tweets(tweets, labels)
-        pad = pad_sequences(input_seq, maxlen=maxlen, padding=padding)
+        pad = pad_sequences(input_seq, maxlen=self.maxlen, padding=padding)
         return pad, labels
       else:
         input_seq, tokenizer = self.tokenize_tweets(tweets)
     else:
       input_seq = tweets 
-    pad = pad_sequences(input_seq, maxlen=maxlen, padding=padding)
+    pad = pad_sequences(input_seq, maxlen=self.maxlen, padding=padding)
     return pad
 
 
