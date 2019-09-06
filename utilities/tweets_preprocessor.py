@@ -76,13 +76,13 @@ class tweetsPreprocessor:
       if labels is not None:
         input_seq, labels, tokenizer = self.tokenize_tweets(tweets, labels)
         pad = pad_sequences(input_seq, maxlen=self.maxlen, padding=padding)
-        return pad, labels
+        return pad, labels, tokenizer
       else:
         input_seq, tokenizer = self.tokenize_tweets(tweets)
     else:
       input_seq = tweets 
     pad = pad_sequences(input_seq, maxlen=self.maxlen, padding=padding)
-    return pad
+    return pad, tokenizer
 
 
 

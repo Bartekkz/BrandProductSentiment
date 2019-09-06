@@ -7,25 +7,31 @@ import warnings
 from keras.utils import to_categorical
 from keras.layers import LSTM
 from utilities.tweets_preprocessor import tweetsPreprocessor
-from utilities.data_loader import load_data, load_training_data, get_embeddings 
+from utilities.data_loader import load_data, load_training_data, get_embeddings, load_train_val_test 
 from models.rnn_model import build_attention_rnn
 from sklearn.model_selection import train_test_split
 
 warnings.filterwarnings('ignore')
 
-MAX_LENGHT = 50
+MAXLEN = 50
 CORPUS = 'datastories.twitter'
 DIM = 300
 
-preprocessor = tweetsPreprocessor(MAX_LENGHT)
+if __name__ == '__main__':    
+    X_train, X_test, y_train, y_test, tokenizer = load_train_val_test(MAXLEN) 
+    emb_matrix = get_embeddings(CORPUS, DIM, tokenizer) 
+    print(type(emb_matrix))
+    print(len(emb_matrix))
 
-if __name__ == '__main__':
-    
-    tweets, labels = load_training_data(10000)
-    input_seq, tokenizer = preprocessor.tokenize_tweets(tweets)
-    embeddings = get_embeddings(CORPUS, DIM, tokenizer) 
-    print(type(embeddings))
-
+    '''
+    load_train_val_test(MAXLEN) 
+    nn_model = build_attention_rnn(
+    embeddings,
+    classes=3,
+    maxlen=MAXLEN,
+    unit=LSTM
+    )    
+    '''
 
 
 

@@ -47,7 +47,7 @@ def load_training_data(num_samples, divide=True):
     return data
 
 
-def load_train_val_test(maxlen: int):
+def load_train_test(maxlen: int):
     preprocessor = tweetsPreprocessor(maxlen)
     tweets, labels = load_training_data(10000)
     pad, labels, tokenizer = preprocessor.get_padded_seq(tweets, labels)   
