@@ -47,9 +47,9 @@ def load_training_data(num_samples, divide=True):
     return data
 
 
-def load_train_test(maxlen: int):
+def load_train_test(maxlen: int, num_samples=10000):
     preprocessor = tweetsPreprocessor(maxlen)
-    tweets, labels = load_training_data(10000)
+    tweets, labels = load_training_data(num_samples)
     pad, labels, tokenizer = preprocessor.get_padded_seq(tweets, labels)   
     X_train, X_test, y_train, y_test = train_test_split(pad,
                                                         labels,
@@ -81,3 +81,6 @@ def name_cols_in_training_data():
             df.to_csv(os.path.join(files_path, str('new_' + fname)), index=False)
         print('Dataframe column names are changed!')
 
+        
+
+        
