@@ -1,3 +1,4 @@
+
 from sklearn import preprocessing
 from keras.layers import Embedding, Bidirectional, LSTM, RNN, Dropout, Dense, Activation
 from keras.models import Model, Sequential
@@ -9,6 +10,17 @@ from kutilities.layers import Attention, AttentionWithContext, MeanOverTime
 
 def embedding_layer(embeddings, maxlen, trainable=False, masking=False,
     scale=False, normalize=False):
+    '''
+    create Keras based embedding layer
+    @params:
+    :embeddings: array - >embeddings weights matrix
+    :maxlen: int -> max lenght of the input sequence 
+    :trainable: bool -> whenever You want to update weight in given layer
+    :scale: bool -> scale weights 
+    :normalize: bool -> normalize weights
+    @return:
+    :keras.layers.Embedding object
+    '''
     if scale:
         embeddings = preprocessing.scale(embeddings)
     if normalize:
@@ -32,6 +44,11 @@ def get_rnn_layer(layer_type=LSTM, cells=64, bi=False, return_sequences=True,
     rnn = layer_type(cells, return_sequences=return_sequences, dropout=dropout, 
     recurrent_dropout=recurrent_dropout, implementation=implementation, 
     kernel_regularizer=l2(l2_reg))
+    '''
+    creates rnn layer of a given type
+    if bi(bool) is True returns
+    bidirectional layer of given type
+    '''
 
     if bi:
         return (Bidirectional(rnn))
@@ -40,6 +57,18 @@ def get_rnn_layer(layer_type=LSTM, cells=64, bi=False, return_sequences=True,
 
 def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
                                                 cells=64, layers=1, **kwargs): 
+    '''
+    creates rnn based model
+    @params:
+    :embeddings: array-> embeddigns matrix
+    :classes: int -> num of label classes 
+    :maxlen: int -> max lenght of the input sequence
+    :layer_type: keras.layers -> type of rnn layer
+    :cells: int -> amount of cells in a single layer
+    :**kwargs: params like all kind of dropouts etc.
+    @returns:
+    :keras.model.sequential object
+    '''
     trainable_emb = kwargs.get('trainable_emb', False)
     bi = kwargs.get('bidirectional', False)
     layer_dropout_rnn = kwargs.get('layer_dropout_rnn', 0)

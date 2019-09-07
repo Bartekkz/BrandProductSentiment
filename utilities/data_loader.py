@@ -10,6 +10,10 @@ from utilities.tweets_preprocessor import tweetsPreprocessor
 
 
 def load_data():
+    '''
+    loads test data from Downloads folder
+    so You need to place your file there
+    '''
     df = pd.read_csv('~/Downloads/judge-1377884607_tweet_product_company.csv',
         usecols=['tweet_text', 'sentiment'],
         encoding='latin-1')
@@ -23,7 +27,14 @@ def load_data():
     return df
 
 
-def load_training_data(num_samples, divide=True):
+def load_training_data(num_samples=0, divide=True):
+    '''
+    loads trainig data from data/tweets folder
+    @params:
+    :num_samples: int -> num of samples to random choose from dataframe(all by default)
+    :divide: bool -> whenever You want to divide dataframe into list of tweets and labels
+    or simply return dataFrame object
+    '''
     files_path = './data/tweets/'
     data = []
     for fname in os.listdir(os.path.abspath(files_path)):
@@ -36,7 +47,7 @@ def load_training_data(num_samples, divide=True):
         else:
             continue
     data = pd.concat(data, ignore_index=True)
-    if num_samples > len(data):
+    if num_samples > len(data) or num_samples == 0:
         data = data.sample(frac=1)
     else:
         data = data.sample(num_samples)
@@ -48,6 +59,12 @@ def load_training_data(num_samples, divide=True):
 
 
 def load_train_test(maxlen: int, num_samples=10000):
+    '''
+    loads, preprocesses and splits training data into train and test sets
+    @params:
+    :maxlen: int -> max lenght of the input sequence
+    :num_samples: int -> number of samples to use from dataframe(all by default)
+    '''
     preprocessor = tweetsPreprocessor(maxlen)
     tweets, labels = load_training_data(num_samples)
     pad, labels, tokenizer = preprocessor.get_padded_seq(tweets, labels)   
@@ -59,6 +76,14 @@ def load_train_test(maxlen: int, num_samples=10000):
 
 
 def get_embeddings(corpus, dim, tokenizer):
+    '''
+    load pretrained word_embeddings learn on twitter datastories
+    @params:
+    :corpus: str -> name of the file without dimension ("ex. twitter.datastories.300d.txtx" -> 
+    "twitter.datastories")
+    :dim: int -> dimension of the embeddings matrix
+    :tokenizer: keras.preprocessing.text.Tokenizer: tokenizer which was fitted on Your train data
+    '''
     word_index = tokenizer.word_index
     vectors = WordVectorsManager(os.path.join(os.path.abspath('.'), 'embeddings'), corpus, 300).read()
     vocab_size = len(vectors)
@@ -74,12 +99,16 @@ def get_embeddings(corpus, dim, tokenizer):
     
 
 def name_cols_in_training_data():
-        files_path = './data/tweets'
-        for fname in os.listdir(files_path):
-            df = pd.read_csv(os.path.join(files_path, fname), delimiter='\t', encoding='utf-8', header=None)
-            df.rename(columns={0:'number', 1:'sentiment', 2:'tweet_text'}, inplace=True)
-            df.to_csv(os.path.join(files_path, str('new_' + fname)), index=False)
-        print('Dataframe column names are changed!')
+    '''
+    by default trainig data has no column names
+    add column names to the training dataframe
+    ''' 
+    files_path = './data/tweets'
+    for fname in os.listdir(files_path):
+        df = pd.read_csv(os.path.join(files_path, fname), delimiter='\t', encoding='utf-8', header=None)
+        df.rename(columns={0:'number', 1:'sentiment', 2:'tweet_text'}, inplace=True)
+        df.to_csv(os.path.join(files_path, str('new_' + fname)), index=False)
+    print('Dataframe column names are changed!')
 
         
 

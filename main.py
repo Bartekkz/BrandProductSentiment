@@ -11,8 +11,10 @@ from utilities.data_loader import load_data, load_training_data, get_embeddings,
 from models.rnn_model import build_attention_rnn
 from sklearn.model_selection import train_test_split
 
+# ignore warnings from libriaries
 warnings.filterwarnings('ignore')
 
+#Constants
 MAXLEN = 50
 CORPUS = 'datastories.twitter'
 DIM = 300
