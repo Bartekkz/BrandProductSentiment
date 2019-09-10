@@ -45,12 +45,12 @@ if __name__ == '__main__':
     model.fit(X_train,
               y_train,
               validation_data=(X_test, y_test),
-              epochs=50,
+              epochs=20,
               batch_size=50
               ) 
     print('Model trained!')
     print('Saving weights...')
-    model.save_weights('./data/model_weights/bi_model_weights_1.h5')
+    model.save_weights(os.path.join(os.path.abspath('data/model_weights'), 'bi_model_weghts_1.h5'))
     print('Done!')
 
 
