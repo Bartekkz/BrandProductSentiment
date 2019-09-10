@@ -3,4 +3,5 @@ __pycache__/
 Untitled.ipynb
 .idea/
 datastories.twitter.300d.pickle
+embeddings/datastories.twitter.300d.txt
 
