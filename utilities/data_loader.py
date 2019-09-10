@@ -58,7 +58,7 @@ def load_training_data(num_samples=0, divide=True):
     return data
 
 
-def load_train_test(maxlen: int, num_samples=10000):
+def load_train_test(maxlen: int, num_samples=0):
     '''
     loads, preprocesses and splits training data into train and test sets
     @params:
