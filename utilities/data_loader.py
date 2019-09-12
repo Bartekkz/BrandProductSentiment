@@ -1,4 +1,3 @@
-
 import time
 import os
 import numpy as np
@@ -75,28 +74,27 @@ def load_train_test(maxlen: int, num_samples=0):
     return X_train, X_test, y_train, y_test, tokenizer
 
 
-def get_embeddings(corpus, dim, tokenizer):
+def get_embeddings(corpus, dim):
     '''
     load pretrained word_embeddings learn on twitter datastories
     @params:
     :corpus: str -> name of the file without dimension ("ex. twitter.datastories.300d.txtx" -> 
     "twitter.datastories")
     :dim: int -> dimension of the embeddings matrix
-    :tokenizer: keras.preprocessing.text.Tokenizer: tokenizer which was fitted on Your train data
     '''
-    word_index = tokenizer.word_index
     vectors = WordVectorsManager(os.path.join(os.path.abspath('.'), 'embeddings'), corpus, 300).read()
-    vocab_size = len(vectors)
-    print(f'Loaded {vocab_size} vectors')
+    print(f'Loaded {len(vectors)} vectors')
+    position = 0
+    word_map = {}
     # Create embeddings matrix
-    emb_matrix = np.ndarray(shape=(len(vectors) + 1, dim), dtype='float32')
-    for word, i in word_index.items():                
-        emb_vector = vectors.get(word)
-        if emb_vector is not None:
-            emb_matrix[i] = emb_vector
-
-    return emb_matrix 
-    
+    emb_matrix = np.ndarray(shape=(len(vectors) + 2, dim), dtype='float32')
+    for i, (word, vector) in enumerate(vectors.items()):
+        if len(vector) > 199:
+            position += 1
+            word_map[word] = position 
+            emb_matrix[position] = vector
+    return emb_matrix, word_map 
+ 
 
 def name_cols_in_training_data():
     '''
