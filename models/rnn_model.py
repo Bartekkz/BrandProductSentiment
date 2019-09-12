@@ -85,7 +85,7 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
     print('Creating model...')
     # init the model
     model = Sequential()
-    model.add(embedding_layer(embeddings=embeddings, maxlen=maxlen, trainable=trainable_emb, masking=True)) 
+    model.add(embedding_layer(embeddings=embeddings, maxlen=maxlen, trainable=trainable_emb, masking=True, scale=True)) 
 
     for i in range(layers):
         return_seq = (layers > 1 and i < layers - 1) or attention
@@ -108,9 +108,9 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
         if dropout_final > 0:
             model.add(Dropout(dropout_final))
 
-    model.add(Dense(classes, activity_regularizer=l2(loss_l2)))
-    model.add(Activation('softmax'))
+    model.add(Dense(classes, activation='sigmoid', activity_regularizer=l2(loss_l2)))
+
 
     model.compile(optimizer=Adam(clipnorm=clipnorm, lr=lr),
-                                loss='categorical_crossentropy')
+                                loss='binary_crossentropy')
     return model
