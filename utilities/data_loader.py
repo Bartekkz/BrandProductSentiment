@@ -89,10 +89,14 @@ def get_embeddings(corpus, dim):
     # Create embeddings matrix
     emb_matrix = np.ndarray(shape=(len(vectors) + 2, dim), dtype='float32')
     for i, (word, vector) in enumerate(vectors.items()):
-        if len(vector) > 199:
-            position += 1
+        if len(vector) > dim-100:
+            position = i + 1
             word_map[word] = position 
             emb_matrix[position] = vector
+    # add unknown token
+    position += 1
+    word_map['<unk>'] = position
+    emb_matrix[position] = np.random.uniform(-0.05, 0.05, size=dim)
     return emb_matrix, word_map 
  
 

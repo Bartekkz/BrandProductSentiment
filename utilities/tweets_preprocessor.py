@@ -97,7 +97,7 @@ class tweetsPreprocessor:
         tokenizer.fit_on_texts(tweets)
         input_seq = tokenizer.texts_to_sequences(tweets)
         if labels is not None: 
-            #labels = to_categorical(labels, num_classes)
+            labels = to_categorical(labels, num_classes)
             return input_seq, labels, tokenizer
         return input_seq, tokenizer 
 

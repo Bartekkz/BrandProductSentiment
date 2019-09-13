@@ -24,18 +24,13 @@ DIM = 300
 preprocessor = tweetsPreprocessor(MAXLEN)
 
 if __name__ == '__main__':      
+    
     X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
     emb_matrix, word_map = get_embeddings(CORPUS, DIM)
-    print(len(word_map))
-    print(len(emb_matrix))
-    print(word_map.get('crinkled'))
-    print(emb_matrix[106331])
         
-
-    '''
     model = build_attention_rnn(
         emb_matrix,
-        classes=1,
+        classes=3,
         maxlen=MAXLEN,
         unit=LSTM,
         layers=2,
@@ -51,21 +46,23 @@ if __name__ == '__main__':
         loss_l2=0.0001
     )        
     print(model.summary())
-    print('Training model...')
-    model.fit(X_train,
-            y_train,
-            validation_data=(X_test, y_test),
-            epochs=18,
-            batch_size=128
-            ) 
-    print('Model trained!')
-    print('Saving model...')
-    model.save(os.path.join(os.path.abspath('data/model_weights'), 'bi_model_4.h5'))
-    print('Done!')
+    model.load_weights('./data/model_weights/bi_model_weights_6.h5')
+    print('Done')
+    #print('Training model...')
+    #model.fit(X_train,
+    #        y_train,
+    #        validation_data=(X_test, y_test),
+    #        epochs=18,
+    #        batch_size=128
+    #        ) 
+    #print('Model trained!')
+    #print('Saving model...')
+    #model.save(os.path.join(os.path.abspath('data/model_weights'), 'bi_model_5.h5'))
+    #print('Done!')
     
-    model = load_model('./data/model_weights/bi_model_4.h5', custom_objects={'Attention':Attention()})
-    pad, _ = preprocessor.get_padded_seq('I hate you bitch not bad sad')
      
-    prediction = model.predict(pad)
-    print(prediction)
-    '''
+    #pad, _ = preprocessor.get_padded_seq('Love happy good great enjoy wonderful')
+     
+    #prediction = model.predict(pad)
+    #print(prediction)
+    
