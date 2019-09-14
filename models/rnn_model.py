@@ -108,7 +108,8 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
         if dropout_final > 0:
             model.add(Dropout(dropout_final))
 
-    model.add(Dense(classes, activation='softmax', activity_regularizer=l2(loss_l2)))
+    model.add(Dense(classes, activity_regularizer=l2(loss_l2)))
+    model.add(Activation('softmax'))
 
 
     model.compile(optimizer=Adam(clipnorm=clipnorm, lr=lr),

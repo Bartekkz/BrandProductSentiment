@@ -97,8 +97,7 @@ def get_embeddings(corpus, dim):
     position += 1
     word_map['<unk>'] = position
     emb_matrix[position] = np.random.uniform(-0.05, 0.05, size=dim)
-    return emb_matrix, word_map 
- 
+    return emb_matrix, word_map  
 
 def name_cols_in_training_data():
     '''
