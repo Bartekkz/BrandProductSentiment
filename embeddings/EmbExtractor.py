@@ -10,7 +10,11 @@ class EmbExtractor:
 
     def tokenize_text(self, texts):
         tokenized_words = [] 
+        print(texts)
+        print(type(texts))
         for text in texts:
+            text = text.split()
+            print(text) 
             tokenized_words.append(np.asarray(self.idx_text(text)))
         return np.asarray(tokenized_words)
 
@@ -22,7 +26,6 @@ class EmbExtractor:
                 print('GOTIT')
                 idx_text.append(self.word_idxs[word])
             else:
-                print(word)
                 print('UNKOWN')
                 if self.unk_policy == 'random':
                     idx_text.append(self.word_idxs['<unk>'])
@@ -31,7 +34,7 @@ class EmbExtractor:
         return idx_text
     
     @staticmethod
-    def pad_seq(tokenized_text, maxlen, padding='post'):
+    def pad_seq(tokenized_text, maxlen, padding='pre'):
         if isinstance(tokenized_text, list):
             tokenized_text = np.asarray(tokenized_text)
         if tokenized_text.ndim == 1:

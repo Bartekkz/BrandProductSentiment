@@ -31,9 +31,10 @@ preprocessor = tweetsPreprocessor(MAXLEN)
 if __name__ == '__main__':      
     X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
     emb_matrix, word_map = get_embeddings(CORPUS, DIM)
-    extractor = EmbExtractor(word_map, MAXLEN)
-    padded = extractor.get_padded_seq(['hello my name is John']) 
-    print(padded)
+    extractor = EmbExtractor(word_map, 10)
+    padded = extractor.get_padded_seq(['hello my name is John', 'my name is John hello'], 'post') 
+    for pad in padded:
+        print(pad)
 
 
     #model = build_attention_rnn(
