@@ -9,7 +9,8 @@ from keras.layers import LSTM, Bidirectional, Dense, Embedding
 from kutilities.layers import Attention
 from keras.models import Sequential, load_model 
 from utilities.tweets_preprocessor import tweetsPreprocessor
-from utilities.data_loader import load_data, load_training_data, get_embeddings, load_train_test, get_embeddings1
+from utilities.data_loader import load_data, load_training_data, get_embeddings, load_train_test 
+from embeddings.EmbExtractor import EmbExtractor
 from models.rnn_model import build_attention_rnn
 from sklearn.model_selection import train_test_split
 
@@ -19,17 +20,21 @@ warnings.filterwarnings('ignore')
 np.random.seed(44)
 
 #Constants
-MAXLEN = 50
+MAXLEN = 25 
 CORPUS = 'datastories.twitter'
 DIM = 300
 
+
 preprocessor = tweetsPreprocessor(MAXLEN)
 
+
 if __name__ == '__main__':      
-    zeros = 0    
     X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
-    #emb_matrix, word_map = get_embeddings(CORPUS, DIM)
-    get_embeddings1(CORPUS, DIM) 
+    emb_matrix, word_map = get_embeddings(CORPUS, DIM)
+    extractor = EmbExtractor(word_map, MAXLEN)
+    padded = extractor.get_padded_seq(['hello my name is John']) 
+    print(padded)
+
 
     #model = build_attention_rnn(
     #    emb_matrix,
