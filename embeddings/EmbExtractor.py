@@ -1,7 +1,8 @@
 
 import numpy as np
+from sklearn.base import BaseEstimator, TransformerMixin
 
-class EmbExtractor:
+class EmbExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, word_idxs, maxlen=0, unk_policy='random', **kwargs):
         self.word_idxs = word_idxs
         self.maxlen = maxlen
@@ -55,3 +56,10 @@ class EmbExtractor:
             padded_seq = self.pad_seq(tokenized_text, self.maxlen, padding=padding) 
             return padded_seq
         return tokenized_text
+
+    
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        return self

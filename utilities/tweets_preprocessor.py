@@ -6,10 +6,12 @@ import nltk
 from ekphrasis.classes.preprocessor import TextPreProcessor
 from ekphrasis.classes.tokenizer import SocialTokenizer
 from ekphrasis.dicts.emoticons import emoticons
+from embeddings.EmbExtractor import EmbExtractor
 from ekphrasis.classes.spellcorrect import SpellCorrector
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
+from sklearn.pipeline import Pipeline
 
 
 class tweetsPreprocessor:
@@ -17,13 +19,15 @@ class tweetsPreprocessor:
     helper class to clean tweets, tokenzier tweets, create padded sequences
     based on ekphrasis which is a text processing tool 
     '''
-    def __init__(self, maxlen):
+    def __init__(self, maxlen, word_idxs):
         '''
         @params:
         :maxlen: int -> max length of the input sequences
+        :word_idxs: dict -> dict with save word -> idx elements
         '''
-        self.preprocessor = self.create_preprocessing_pipeline()
         self.maxlen = maxlen
+        self.word_idxs = word_idxs
+        self.pipeline = self.create_preprocessing_pipeline()
 
 
     def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
@@ -34,9 +38,10 @@ class tweetsPreprocessor:
         '''
         create text processing pipeline 
         @returns:
-        :ekphrasis.classes.preprocessor.TextPreProcessor object
+        :sklearn.pipeline object
         '''
-        text_processor = TextPreProcessor(
+        pipeline = Pipeline([
+            ('preprocess', TextPreProcessor(
             normalize=normalize,
             annotate=annotate,
             fix_html=fix_html,
@@ -48,8 +53,12 @@ class tweetsPreprocessor:
             corrector='english',
             segmenter=segmenter,
             dicts=dicts
-        )
-        return text_processor
+        )),
+        ('extractor', EmbExtractor(
+            word_idxs=self.word_idxs,
+            maxlen=self.maxlen))])
+
+        return pipeline 
 
 
     def clean_tweets(self, txt):
