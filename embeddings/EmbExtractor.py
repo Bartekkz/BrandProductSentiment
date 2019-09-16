@@ -23,10 +23,8 @@ class EmbExtractor:
         idx_text = []
         for word in text:
             if word in self.word_idxs:
-                print('GOTIT')
                 idx_text.append(self.word_idxs[word])
             else:
-                print('UNKOWN')
                 if self.unk_policy == 'random':
                     idx_text.append(self.word_idxs['<unk>'])
                 elif self.unk_policy == 'zero':
