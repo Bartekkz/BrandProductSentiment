@@ -22,24 +22,24 @@ class tweetsPreprocessor(BaseEstimator, TransformerMixin):
     based on ekphrasis which is a text processing tool 
     '''
     def __init__(self):
-        self.preprocessor = self.create_preprocessing_pipeline()
+        self.preprocessor = self.create_preprocessor()
 
 
-    def create_preprocessing_pipeline(self):
-        pipeline = TextPreProcessor(
-            normalize=['url', 'email', 'percent', 'money', 'phone', 'user', 'time', 'url', 'date', 'number'],
-            annotate={"hashtag", "allcaps", "elongated",'emphasis', 'censored'},
-            fix_html=True,
-            segmenter='twitter',
-            corrector='twitter',
-            unpack_hashtags=True,
-            unpack_contractions=True,
-            spell_correct_elong=True,
-            tokenizer=SocialTokenizer(lowercase=True).tokenize,
-            dicts=[emoticons]
-        )
+    def create_preprocessor(self):
+        preprocessor = TextPreProcessor(
+                normalize=['url', 'email', 'percent', 'money', 'phone', 'user', 'time', 'url', 'date', 'number'],
+                annotate={"hashtag", "allcaps", "elongated",'emphasis', 'censored'},
+                fix_html=True,
+                segmenter='twitter',
+                corrector='twitter',
+                unpack_hashtags=True,
+                unpack_contractions=True,
+                spell_correct_elong=True,
+                tokenizer=SocialTokenizer(lowercase=True).tokenize,
+                dicts=[emoticons]
+            )
 
-        return pipeline
+        return preprocessor 
 
 
     def clean_tweets(self, txt):

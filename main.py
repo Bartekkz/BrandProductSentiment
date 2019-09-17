@@ -13,6 +13,7 @@ from utilities.data_loader import load_data, load_training_data, get_embeddings,
 from embeddings.EmbExtractor import EmbExtractor
 from models.rnn_model import build_attention_rnn
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 
 # ignore warnings from libriaries
 warnings.filterwarnings('ignore')
@@ -25,22 +26,21 @@ CORPUS = 'datastories.twitter'
 DIM = 300
 
 if __name__ == '__main__':      
-    #emb_matrix, word_map = get_embeddings(CORPUS, DIM)
-    #preprocessor = tweetsPreprocessor(MAXLEN, word_map)
-    #clean_tweet = preprocessor.preprocess_tweets('hello What is Going on? #assasin')
-    #print(clean_tweet)
+    emb_matrix, word_map = get_embeddings(CORPUS, DIM) 
     #X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
     tweets, labels = load_training_data()
     #print(len(tweets))
-    preprocessor = tweetsPreprocessor()
-    cleaned = preprocessor.transform(tweets)
-    print(len(cleaned))
-    print('Done!')
+    pipeline = Pipeline([
+        ('preprocessor', tweetsPreprocessor()),
+        #('extractor', EmbExtractor(word_map, MAXLEN))
+    ])
+    x = pipeline.fit_transform(tweets)
+    x = np.asarray(x)
+    print(x.shape)
+    print(x[-1])
+   
+    
 
-    #extractor = EmbExtractor(word_map, 10)
-    #padded = extractor.get_padded_seq(['hello my name is John', 'my name is John hello'], 'post') 
-    #for pad in padded:
-    #    print(pad)
 
 
     #model = build_attention_rnn(

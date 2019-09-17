@@ -14,14 +14,11 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
         self.word_idxs = word_idxs
         self.maxlen = maxlen
         self.unk_policy = unk_policy
-        self.pipeline = self.create_preprocessing_pipeline()
 
 
     def tokenize_text(self, texts):
         tokenized_words = [] 
-        for text in texts:
-            text = text.split()
-            print(text) 
+        for text in texts:  
             tokenized_words.append(np.asarray(self.idx_text(text)))
         return np.asarray(tokenized_words)
 
@@ -63,6 +60,11 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
             padded_seq = self.pad_seq(tokenized_text, self.maxlen, padding=padding) 
             return padded_seq
         return tokenized_text
+
+
+    def transform(self, X, y=None):
+        padded_seq = self.get_padded_seq(X)
+        return padded_seq
 
 
     def fit(self, X, y=None):
