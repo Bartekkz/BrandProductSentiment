@@ -25,10 +25,17 @@ CORPUS = 'datastories.twitter'
 DIM = 300
 
 if __name__ == '__main__':      
-    emb_matrix, word_map = get_embeddings(CORPUS, DIM)
-    preprocessor = tweetsPreprocessor(MAXLEN, word_map)
-    print(preprocessor.pipeline)
+    #emb_matrix, word_map = get_embeddings(CORPUS, DIM)
+    #preprocessor = tweetsPreprocessor(MAXLEN, word_map)
+    #clean_tweet = preprocessor.preprocess_tweets('hello What is Going on? #assasin')
+    #print(clean_tweet)
     #X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
+    tweets, labels = load_training_data()
+    #print(len(tweets))
+    preprocessor = tweetsPreprocessor()
+    cleaned = preprocessor.transform(tweets)
+    print(len(cleaned))
+    print('Done!')
 
     #extractor = EmbExtractor(word_map, 10)
     #padded = extractor.get_padded_seq(['hello my name is John', 'my name is John hello'], 'post') 

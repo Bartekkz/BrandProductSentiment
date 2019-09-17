@@ -1,18 +1,24 @@
-
 import numpy as np
+import os
 from sklearn.base import BaseEstimator, TransformerMixin
+from utilities import tweets_preprocessor
+from ekphrasis.classes import preprocessor
+from ekphrasis.classes.spellcorrect import SpellCorrector
+from ekphrasis.classes.preprocessor import TextPreProcessor
+from ekphrasis.classes.tokenizer import SocialTokenizer
+from ekphrasis.dicts.emoticons import emoticons
+
 
 class EmbExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, word_idxs, maxlen=0, unk_policy='random', **kwargs):
         self.word_idxs = word_idxs
         self.maxlen = maxlen
         self.unk_policy = unk_policy
-    
+        self.pipeline = self.create_preprocessing_pipeline()
+
 
     def tokenize_text(self, texts):
         tokenized_words = [] 
-        print(texts)
-        print(type(texts))
         for text in texts:
             text = text.split()
             print(text) 
@@ -31,7 +37,8 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
                 elif self.unk_policy == 'zero':
                     idx_text.append(0)
         return idx_text
-    
+
+
     @staticmethod
     def pad_seq(tokenized_text, maxlen, padding='pre'):
         if isinstance(tokenized_text, list):
@@ -57,9 +64,9 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
             return padded_seq
         return tokenized_text
 
-    
+
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
-        return self
+
+

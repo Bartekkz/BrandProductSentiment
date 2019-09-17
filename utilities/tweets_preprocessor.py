@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import string
 import nltk
+import pickle
 from ekphrasis.classes.preprocessor import TextPreProcessor
 from ekphrasis.classes.tokenizer import SocialTokenizer
 from ekphrasis.dicts.emoticons import emoticons
@@ -12,53 +13,33 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 from sklearn.pipeline import Pipeline
+from sklearn.base import BaseEstimator, TransformerMixin
 
 
-class tweetsPreprocessor:
+class tweetsPreprocessor(BaseEstimator, TransformerMixin):
     '''
     helper class to clean tweets, tokenzier tweets, create padded sequences
     based on ekphrasis which is a text processing tool 
     '''
-    def __init__(self, maxlen, word_idxs):
-        '''
-        @params:
-        :maxlen: int -> max length of the input sequences
-        :word_idxs: dict -> dict with save word -> idx elements
-        '''
-        self.maxlen = maxlen
-        self.word_idxs = word_idxs
-        self.pipeline = self.create_preprocessing_pipeline()
+    def __init__(self):
+        self.preprocessor = self.create_preprocessing_pipeline()
 
 
-    def create_preprocessing_pipeline(self, normalize=['url', 'email', 'percent', 'money', 'phone', 'user',
-        'time', 'url', 'date', 'number'], annotate={"hashtag", "allcaps", "elongated",
-        'emphasis', 'censored'}, fix_html=True, segmenter="twitter", corrector="twitter", unpack_hashtags=True,
-        unpack_contractions=True, spell_correct_elong=True, tokenizer=SocialTokenizer(lowercase=True).tokenize,
-        dicts=[emoticons]):
-        '''
-        create text processing pipeline 
-        @returns:
-        :sklearn.pipeline object
-        '''
-        pipeline = Pipeline([
-            ('preprocess', TextPreProcessor(
-            normalize=normalize,
-            annotate=annotate,
-            fix_html=fix_html,
-            spell_correct_elong=spell_correct_elong,
+    def create_preprocessing_pipeline(self):
+        pipeline = TextPreProcessor(
+            normalize=['url', 'email', 'percent', 'money', 'phone', 'user', 'time', 'url', 'date', 'number'],
+            annotate={"hashtag", "allcaps", "elongated",'emphasis', 'censored'},
+            fix_html=True,
+            segmenter='twitter',
+            corrector='twitter',
+            unpack_hashtags=True,
             unpack_contractions=True,
-            unpack_hashtags=unpack_hashtags,
-            tokenizer=tokenizer,
-            spell_correction=True,
-            corrector='english',
-            segmenter=segmenter,
-            dicts=dicts
-        )),
-        ('extractor', EmbExtractor(
-            word_idxs=self.word_idxs,
-            maxlen=self.maxlen))])
+            spell_correct_elong=True,
+            tokenizer=SocialTokenizer(lowercase=True).tokenize,
+            dicts=[emoticons]
+        )
 
-        return pipeline 
+        return pipeline
 
 
     def clean_tweets(self, txt):
@@ -78,7 +59,7 @@ class tweetsPreprocessor:
         '''
         cleaned_tweets = []
         if isinstance(tweets, list):
-            for tweet in tweets:                                                
+            for tweet in tweets:
                 clean_tweet = self.preprocessor.pre_process_doc(tweet)
                 clean_tweet = ' '.join(word for word in clean_tweet)
                 clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
@@ -91,51 +72,20 @@ class tweetsPreprocessor:
             return [clean_tweet]
 
 
-    def tokenize_tweets(self, tweets, labels=None, num_classes=3):
-        '''
-        return tokenized array of words using keras Tokenizer   
-        @params:
-        :tweets: str/array -> twitter tweets 
-        :labels: array -> array of labels for given tweets
-        :num_classes: int -> number of output classes eg. (negative, neutral, positivee) - > 3
-        @return:
-        :input_seq -> array of tokenized words
-        :tokenizer: keras.preprocessing.text.Tokenizer object fitted on given tweets
-        '''
-        tokenizer = Tokenizer()
-        tokenizer.fit_on_texts(tweets)
-        input_seq = tokenizer.texts_to_sequences(tweets)
-        if labels is not None: 
-            labels = to_categorical(labels, num_classes)
-            return input_seq, labels, tokenizer
-        return input_seq, tokenizer 
+    def transform(self, X, y=None):
+        path = 'data/tweets/pickled/processed_tweets.pickle' 
 
+        if os.path.exists(path):
+            with open(path, 'rb') as f:
+                processed_tweets = pickle.load(f)
 
-    def get_padded_seq(self, tweets, labels=None, padding='pre', preprocess=True):
-        '''
-        pad to sequences given tweets
-        @params:
-        :tweeets: str/array - > twitter tweets 
-        :labels: array -> array of labels for given tweets
-        :padding: str -> padding of zeros in padded_seq
-        :preprocess: bool -> whenever You want to preprocess tweets with self.preprocess_tweets 
-        functions
-        @return:
-        padded sequences, binary class matrix(labels), tokenizer
-        '''
-        if preprocess:
-            tweets = self.preprocess_tweets(tweets)
-            if labels is not None:
-                input_seq, labels, tokenizer = self.tokenize_tweets(tweets, labels)
-                pad = pad_sequences(input_seq, maxlen=self.maxlen, padding=padding)
-                return pad, labels, tokenizer
-            else:
-                input_seq, tokenizer = self.tokenize_tweets(tweets)
         else:
-            input_seq = tweets 
-        pad = pad_sequences(input_seq, maxlen=self.maxlen, padding=padding)
-        return pad, tokenizer
+            processed_tweets = self.preprocess_tweets(X)
+            with open(path, 'wb') as f:
+                pickle.dump(processed_tweets, f)
+
+        return processed_tweets 
 
 
-
-        
+    def fit(self, X, y=None):
+        return self

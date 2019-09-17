@@ -99,6 +99,7 @@ def get_embeddings(corpus, dim):
     emb_matrix[position] = np.random.uniform(-0.05, 0.05, size=dim)
     return emb_matrix, word_map  
 
+
 def name_cols_in_training_data():
     '''
     by default trainig data has no column names
