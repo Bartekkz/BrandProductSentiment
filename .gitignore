@@ -5,3 +5,4 @@ Untitled.ipynb
 datastories.twitter.300d.pickle
 embeddings/datastories.twitter.300d.txt
 data/model_weights
+data/tweets/pickled
