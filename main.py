@@ -21,7 +21,7 @@ warnings.filterwarnings('ignore')
 np.random.seed(44)
 
 #Constants
-MAXLEN = 25 
+MAXLEN = 50 
 CORPUS = 'datastories.twitter'
 DIM = 300
 
@@ -30,14 +30,22 @@ if __name__ == '__main__':
     #X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
     tweets, labels = load_training_data()
     #print(len(tweets))
+    
     pipeline = Pipeline([
         ('preprocessor', tweetsPreprocessor()),
-        #('extractor', EmbExtractor(word_map, MAXLEN))
+        #('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
+     
+    #extractor = EmbExtractor(word_map, MAXLEN)
+    #cleaned = extractor.get_padded_seq([12, 23, 45])
+    #print(cleaned)
     x = pipeline.fit_transform(tweets)
-    x = np.asarray(x)
-    print(x.shape)
-    print(x[-1])
+    print(len(x))
+    print(x[10])
+
+
+
+   
    
     
 
@@ -81,4 +89,6 @@ if __name__ == '__main__':
      
     #prediction = model.predict(pad)
     #print(prediction)
+
     
+

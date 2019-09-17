@@ -1,4 +1,5 @@
-import numpy as np
+
+import numpy as np 
 import os
 from sklearn.base import BaseEstimator, TransformerMixin
 from utilities import tweets_preprocessor
@@ -36,13 +37,13 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
         return idx_text
 
 
-    @staticmethod
-    def pad_seq(tokenized_text, maxlen, padding='pre'):
+    def pad_seq(self, tokenized_text, maxlen, padding='pre'):
         if isinstance(tokenized_text, list):
+            print('Changing...')
             tokenized_text = np.asarray(tokenized_text)
         if tokenized_text.ndim == 1:
-            tokenized_text = np.asarray([tokenized_text])
-        padded_seq = np.zeros((len(tokenized_text), maxlen), dtype='int32')
+            tokenized_text = np.expand_dims(tokenized_text, 0)  
+        padded_seq = np.zeros((len(tokenized_text), maxlen), dtype='int32') 
         for i, text in enumerate(tokenized_text):
             if text.shape[0] < maxlen:
                 if padding == 'pre':
@@ -57,7 +58,7 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
     def get_padded_seq(self, text, padding='pre'):
         tokenized_text = self.tokenize_text(text)
         if self.maxlen > 0:
-            padded_seq = self.pad_seq(tokenized_text, self.maxlen, padding=padding) 
+            padded_seq = self.pad_seq(text, self.maxlen, padding=padding) 
             return padded_seq
         return tokenized_text
 
