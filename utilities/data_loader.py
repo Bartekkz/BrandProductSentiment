@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from keras.preprocessing.text import Tokenizer
+from keras.utils import to_categorical
 from embeddings.word_vectors_manager import WordVectorsManager
 from utilities.tweets_preprocessor import tweetsPreprocessor
 from embeddings.EmbExtractor import EmbExtractor
@@ -61,7 +62,7 @@ def load_training_data(num_samples=0, divide=True):
     return data
 
 
-def load_train_test(pipeline, maxlen=50 , num_samples=0, one_hot_labels=True, test_size=0.3):
+def load_train_test(pipeline, maxlen=50 , num_samples=0, one_hot_labels=True, num_classes=3, test_size=0.3):
     '''
     loads, preprocesses and splits training data into train and test sets
     @params:
@@ -72,7 +73,9 @@ def load_train_test(pipeline, maxlen=50 , num_samples=0, one_hot_labels=True, te
     print('Loading and splitting data...')
     tweets, labels = load_training_data(num_samples)
     padded_seq = pipeline.fit_transform(tweets)
-    return padded_seq
+    if one_hot_labels:
+        labels = to_categorical(labels, num_classes=num_classes)
+    return padded_seq, labels
 
 
 

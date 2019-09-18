@@ -18,11 +18,6 @@ from models.rnn_model import build_attention_rnn
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
-
-# ignore warnings from libriaries
-
-
-
 np.random.seed(44)
 
 #Constants
@@ -36,9 +31,9 @@ if __name__ == '__main__':
         ('preprocessor', tweetsPreprocessor()),
         ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
-    pad = load_train_test(maxlen=40, pipeline=pipeline)
-    print(len(pad))
-    print(pad[1450])
+    pad, labels = load_train_test(maxlen=40, pipeline=pipeline)
+    print(pad[3000])
+    print(labels[3000])
     
    
     #model = build_attention_rnn(
