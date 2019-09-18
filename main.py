@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-import os
-import numpy as np
-import string
 import warnings
+warnings.filterwarnings('ignore')
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import numpy as np
+np.seterr(all='ignore')
+import string
 from keras.utils import to_categorical
 from keras.layers import LSTM, Bidirectional, Dense, Embedding 
 from kutilities.layers import Attention
@@ -15,42 +18,29 @@ from models.rnn_model import build_attention_rnn
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
+
 # ignore warnings from libriaries
-warnings.filterwarnings('ignore')
+
+
 
 np.random.seed(44)
 
 #Constants
-MAXLEN = 50 
+MAXLEN = 70 
 CORPUS = 'datastories.twitter'
 DIM = 300
 
 if __name__ == '__main__':      
-    emb_matrix, word_map = get_embeddings(CORPUS, DIM) 
-    #X_train, X_test, y_train, y_test, _= load_train_test(MAXLEN) 
-    tweets, labels = load_training_data()
-    #print(len(tweets))
-    
+    emb_matrix, word_map = get_embeddings(CORPUS, DIM)  
     pipeline = Pipeline([
         ('preprocessor', tweetsPreprocessor()),
-        #('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
+        ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
-     
-    #extractor = EmbExtractor(word_map, MAXLEN)
-    #cleaned = extractor.get_padded_seq([12, 23, 45])
-    #print(cleaned)
-    x = pipeline.fit_transform(tweets)
-    print(len(x))
-    print(x[10])
-
-
-
-   
-   
+    pad = load_train_test(maxlen=40, pipeline=pipeline)
+    print(len(pad))
+    print(pad[1450])
     
-
-
-
+   
     #model = build_attention_rnn(
     #    emb_matrix,
     #    classes=3,

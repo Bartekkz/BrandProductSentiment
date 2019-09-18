@@ -6,6 +6,10 @@ from sklearn.model_selection import train_test_split
 from keras.preprocessing.text import Tokenizer
 from embeddings.word_vectors_manager import WordVectorsManager
 from utilities.tweets_preprocessor import tweetsPreprocessor
+from embeddings.EmbExtractor import EmbExtractor
+import warnings
+warnings.filterwarnings('ignore')
+np.seterr(all='ignore')
 
 
 def load_data():
@@ -57,21 +61,19 @@ def load_training_data(num_samples=0, divide=True):
     return data
 
 
-def load_train_test(maxlen: int, num_samples=0):
+def load_train_test(pipeline, maxlen=50 , num_samples=0, one_hot_labels=True, test_size=0.3):
     '''
     loads, preprocesses and splits training data into train and test sets
     @params:
     :maxlen: int -> max lenght of the input sequence
     :num_samples: int -> number of samples to use from dataframe(all by default)
+    :word_map: dict -> dictionary which maps word to index
     '''
-    preprocessor = tweetsPreprocessor(maxlen)
+    print('Loading and splitting data...')
     tweets, labels = load_training_data(num_samples)
-    pad, labels, tokenizer = preprocessor.get_padded_seq(tweets, labels)   
-    X_train, X_test, y_train, y_test = train_test_split(pad,
-                                                        labels,
-                                                        test_size=0.3,
-                                                        random_state=42)
-    return X_train, X_test, y_train, y_test, tokenizer
+    padded_seq = pipeline.fit_transform(tweets)
+    return padded_seq
+
 
 
 def get_embeddings(corpus, dim):
@@ -82,6 +84,7 @@ def get_embeddings(corpus, dim):
     "twitter.datastories")
     :dim: int -> dimension of the embeddings matrix
     '''
+    print('Getting Embeddings...')
     vectors = WordVectorsManager(os.path.join(os.path.abspath('.'), 'embeddings'), corpus, 300).read()
     print(f'Loaded {len(vectors)} vectors')
     position = 0

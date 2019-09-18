@@ -62,7 +62,7 @@ class tweetsPreprocessor(BaseEstimator, TransformerMixin):
             for tweet in tweets:
                 clean_tweet = self.preprocessor.pre_process_doc(tweet)
                 clean_tweet = ' '.join(word for word in clean_tweet)
-                clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
+                #clean_tweet = [word for word in clean_tweet.split() if word not in string.punctuation]
                 cleaned_tweets.append(clean_tweet)
             return cleaned_tweets 
         else:
