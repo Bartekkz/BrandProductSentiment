@@ -21,8 +21,9 @@ class tweetsPreprocessor(BaseEstimator, TransformerMixin):
     helper class to clean tweets, tokenzier tweets, create padded sequences
     based on ekphrasis which is a text processing tool 
     '''
-    def __init__(self):
+    def __init__(self, load=True):
         self.preprocessor = self.create_preprocessor()
+        self.load = load
 
 
     def create_preprocessor(self):
@@ -74,16 +75,17 @@ class tweetsPreprocessor(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         path = 'data/tweets/pickled/processed_tweets.pickle' 
+        if self.load:
+            if os.path.exists(path):
+                with open(path, 'rb') as f:
+                    processed_tweets = pickle.load(f)
 
-        if os.path.exists(path):
-            with open(path, 'rb') as f:
-                processed_tweets = pickle.load(f)
-
+            else:
+                processed_tweets = self.preprocess_tweets(X)
+                with open(path, 'wb') as f:
+                    pickle.dump(processed_tweets, f)
         else:
             processed_tweets = self.preprocess_tweets(X)
-            with open(path, 'wb') as f:
-                pickle.dump(processed_tweets, f)
-
         return processed_tweets 
 
 

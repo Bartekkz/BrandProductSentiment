@@ -1,4 +1,5 @@
 
+import time
 from sklearn import preprocessing
 from keras.layers import Embedding, Bidirectional, LSTM, RNN, Dropout, Dense, Activation
 from keras.models import Model, Sequential
@@ -6,6 +7,11 @@ from keras.regularizers import l2
 from keras.optimizers import Adam
 from keras.constraints import max_norm
 from kutilities.layers import Attention, AttentionWithContext, MeanOverTime
+from sklearn.pipeline import Pipeline
+from utilities.data_loader import get_embeddings
+from utilities.tweets_preprocessor import tweetsPreprocessor
+from embeddings.EmbExtractor import EmbExtractor
+from keras.models import load_model
 
 
 def embedding_layer(embeddings, maxlen, trainable=False, masking=False,
@@ -115,3 +121,21 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
     model.compile(optimizer=Adam(clipnorm=clipnorm, lr=lr),
                                 loss='categorical_crossentropy')
     return model
+
+
+def predict(tweet, model_weights='data/model_weights/new_bi_model_1.h5'):
+    curr_time = time.time()
+    MAXLEN = 40 
+    CORPUS = 'datastories.twitter'
+    DIM = 300
+    _, word_map = get_embeddings(CORPUS, DIM)  
+    pipeline = Pipeline([
+        ('preprocessor', tweetsPreprocessor(load=False)),
+        ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
+    ])
+    pad = pipeline.transform(tweet) 
+    model = load_model(model_weights, custom_objects={'Attention':Attention()})
+    prediction = model.predict(pad)
+    print(prediction)
+    delta = time.time() - curr_time
+    print(f'Predicting took: {delta} seconds')

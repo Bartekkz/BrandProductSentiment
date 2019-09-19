@@ -59,7 +59,7 @@ class EmbExtractor(BaseEstimator, TransformerMixin):
 
     def get_padded_seq(self, text, padding='pre'):
         if isinstance(text, str):
-            print('Swaping to list')
+            print('Swaping to list...')
             text = [text]
         tokenized_text = self.tokenize_text(text) 
         if self.maxlen > 0:
