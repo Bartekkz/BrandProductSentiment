@@ -86,6 +86,8 @@ if __name__ == '__main__':
 '''
 TODO:
     - fix labels order
+    - create function to predict
+    - deployment
 '''
 
 
