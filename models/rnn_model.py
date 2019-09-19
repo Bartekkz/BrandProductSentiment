@@ -1,4 +1,5 @@
 
+import numpy as np
 import time
 from sklearn import preprocessing
 from keras.layers import Embedding, Bidirectional, LSTM, RNN, Dropout, Dense, Activation
@@ -136,6 +137,12 @@ def predict(tweet, model_weights='data/model_weights/new_bi_model_1.h5'):
     pad = pipeline.transform(tweet) 
     model = load_model(model_weights, custom_objects={'Attention':Attention()})
     prediction = model.predict(pad)
-    print(prediction)
+    for pred in prediction:
+        if np.argmax(pred) == 2:
+            print('negative')
+        elif np.argmax(pred) == 1:
+            print('positive')
+        else:
+            print('neutral')
     delta = time.time() - curr_time
     print(f'Predicting took: {delta} seconds')

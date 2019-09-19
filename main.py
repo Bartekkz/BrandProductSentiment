@@ -23,13 +23,9 @@ tf.logging.set_verbosity(tf.logging.ERROR)
 
 np.random.seed(44)
 
-#Constants
-MAXLEN = 40 
-CORPUS = 'datastories.twitter'
-DIM = 300
 
 if __name__ == '__main__':      
-    predict(tweet=['Fuck you man I hate you!', 'I am so happy :)'])
+    predict(tweet=['Fuck you man I hate you!', 'I am so happy :)', 'Today is monday'])
     
 
 
