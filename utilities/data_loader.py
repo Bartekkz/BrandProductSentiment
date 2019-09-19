@@ -62,20 +62,21 @@ def load_training_data(num_samples=0, divide=True):
     return data
 
 
-def load_train_test(pipeline, maxlen=50 , num_samples=0, one_hot_labels=True, num_classes=3, test_size=0.3):
+def load_train_test(pipeline, num_samples=0, one_hot_labels=True, num_classes=3, test_size=0.3):
     '''
     loads, preprocesses and splits training data into train and test sets
     @params:
-    :maxlen: int -> max lenght of the input sequence
     :num_samples: int -> number of samples to use from dataframe(all by default)
     :word_map: dict -> dictionary which maps word to index
+    :one_hot_labels: bool -> convers labels to one_hot_encoded matrix ex. [0., 1., 0.1]
     '''
     print('Loading and splitting data...')
     tweets, labels = load_training_data(num_samples)
     padded_seq = pipeline.fit_transform(tweets)
     if one_hot_labels:
         labels = to_categorical(labels, num_classes=num_classes)
-    return padded_seq, labels
+    X_train, X_val, y_train, y_val = train_test_split(padded_seq, labels, test_size=test_size, random_state=123)
+    return X_train, X_val, y_train, y_val 
 
 
 

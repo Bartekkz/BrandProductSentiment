@@ -21,59 +21,69 @@ from sklearn.pipeline import Pipeline
 np.random.seed(44)
 
 #Constants
-MAXLEN = 70 
+MAXLEN = 40 
 CORPUS = 'datastories.twitter'
 DIM = 300
 
 if __name__ == '__main__':      
     emb_matrix, word_map = get_embeddings(CORPUS, DIM)  
+    extractor = EmbExtractor(word_map, maxlen=MAXLEN)
+    preprocessor = tweetsPreprocessor()
+    '''   
     pipeline = Pipeline([
         ('preprocessor', tweetsPreprocessor()),
         ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
-    pad, labels = load_train_test(maxlen=40, pipeline=pipeline)
-    print(pad[3000])
-    print(labels[3000])
-    
-   
-    #model = build_attention_rnn(
-    #    emb_matrix,
-    #    classes=3,
-    #    maxlen=MAXLEN,
-    #    unit=LSTM,
-    #    layers=2,
-    #    trainable_emb=False,
-    #    bidirectional=True,
-    #    attention='simple',
-    #    dropout_attention=0.5,
-    #    layer_dropout_rnn=0.3,
-    #    dropout_rnn=0.5,
-    #    rec_dropout_rnn=0.5,
-    #    clipnorm=1,
-    #    lr=0.01,
-    #    loss_l2=0.0001
-    #)        
-    #print(model.summary())
-    #model.load_weights('./data/model_weights/model_weights_1.h5')
-    #print('Done')
 
-    #print('Training model...')
-    #model.fit(X_train,
-    #        y_train,
-    #        validation_data=(X_test, y_test),
-    #        epochs=18,
-    #        batch_size=128
-    #        ) 
-    #print('Model trained!')
-    #print('Saving model...')
-    #model.save(os.path.join(os.path.abspath('data/model_weights'), 'bi_model_5.h5'))
-    #print('Done!')
+    X_train, X_val, y_train, y_val = load_train_test(pipeline=pipeline, test_size=0.2)
     
-     
-    #pad, _ = preprocessor.get_padded_seq('Love happy good great enjoy wonderful')
-     
-    #prediction = model.predict(pad)
-    #print(prediction)
+    model = build_attention_rnn(
+        emb_matrix,
+        classes=3,
+        maxlen=MAXLEN,
+        unit=LSTM,
+        layers=2,
+        trainable_emb=False,
+        bidirectional=True,
+        attention='simple',
+        dropout_attention=0.5,
+        layer_dropout_rnn=0.3,
+        dropout_rnn=0.5,
+        rec_dropout_rnn=0.5,
+        clipnorm=1,
+        lr=0.01,
+        loss_l2=0.0001
+    )        
+    print(model.summary())
+    print('Training model...')
+    model.fit(X_train,
+            y_train,
+            validation_data=(X_val, y_val),
+            epochs=18,
+            batch_size=128
+            ) 
+    print('Model trained!')
+    print('Saving model...')
+    model.save(os.path.join(os.path.abspath('data/model_weights'), 'new_bi_model_1.h5'))
+    print('Done!')
+    ''' 
+    model = load_model('./data/model_weights/new_bi_model_1.h5', custom_objects={'Attention':Attention()})
+    print(model.summary())
+    tweet = ['Fuck you man I hate you bad sad hate shit :/', 'I love you I am so happy this is so good great :)',
+    'this is the worst game i have ever play #shit', 'thanks man this is brilliant, wonderful game :)']
+    tweet = preprocessor.preprocess_tweets(tweet)
+    pad = extractor.get_padded_seq(tweet)
+    for padded in pad:
+        padded = np.array([padded])
+        predictoin = model.predict(padded)
+        if np.argmax(predictoin) == 2:
+            print('negative')
+        elif np.argmax(predictoin) == 1:
+            print('positive')
+        else:
+            print('neutral')
+        
+    
 
     
 
