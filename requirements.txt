@@ -6,3 +6,4 @@ tensorflow
 sklearn
 keras-utilities
 pytest
+flask
