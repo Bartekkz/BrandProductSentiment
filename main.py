@@ -22,10 +22,11 @@ import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.ERROR)
 
 np.random.seed(44)
-model_weights = 'data/model_weights/new_bi_model_1.h5'
+model_weights = 'data/model_weights/new_bi_model_2.h5'
+model = load_model(model_weights, custom_objects={'Attention':Attention()})
 
 if __name__ == '__main__':       
-    predict(['Fuck you man!', 'I am so happy :)', 'Today is monday and it is snowy.', 'Today is the best day of my life', 'You are so bad! :/'])
+    predict(['You are terrible man! the worst product i habe ever seen shame on you', 'this is a great product', 'this is a wonderful brand :)', 'the event took place in paris.'], model=model)
     '''
     emb_matrix, word_map = get_embeddings('datastories.twitter', 300)
     print(len(word_map))

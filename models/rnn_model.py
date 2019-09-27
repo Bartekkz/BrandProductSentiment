@@ -124,7 +124,7 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
     return model
 
 
-def predict(tweet, model_weights='data/model_weights/new_bi_model_2.h5'):
+def predict(tweet, model):
     curr_time = time.time()
     MAXLEN = 50 
     CORPUS = 'datastories.twitter'
@@ -135,7 +135,6 @@ def predict(tweet, model_weights='data/model_weights/new_bi_model_2.h5'):
         ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
     pad = pipeline.transform(tweet) 
-    model = load_model(model_weights, custom_objects={'Attention':Attention()})
     prediction = model.predict(pad)
     for pred in prediction:
         if np.argmax(pred) == 2:
