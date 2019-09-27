@@ -22,38 +22,57 @@ import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.ERROR)
 
 np.random.seed(44)
+model_weights = 'data/model_weights/new_bi_model_1.h5'
 
+if __name__ == '__main__':       
+    predict(['Fuck you man!', 'I am so happy :)', 'Today is monday and it is snowy.', 'Today is the best day of my life', 'You are so bad! :/'])
+    '''
+    emb_matrix, word_map = get_embeddings('datastories.twitter', 300)
+    print(len(word_map))
+    print(type(word_map))
 
-if __name__ == '__main__':      
-    predict(tweet=['Fuck you man I hate you!', 'I am so happy :)', 'Today is monday'])
+    pipeline = Pipeline([
+        ('preprocessor', tweetsPreprocessor(load=True)),
+        ('extractor', EmbExtractor(word_idxs=word_map, maxlen=50))])
+    X_train, X_val, y_train, y_val = load_train_test(pipeline=pipeline, test_size=0.2)
+    print(X_train[10])
+
+    model = build_attention_rnn(
+        emb_matrix,
+        classes=3,
+        maxlen=50,
+        unit=LSTM,
+        layers=2,
+        trainable_emb=False,
+        bidirectional=True,
+        attention='simple',
+        dropout_attention=0.5,
+        layer_dropout_rnn=0.5,
+        dropout_rnn=0.5,
+        rec_dropout_rnn=0.5,
+        clipnorm=1,
+        lr=0.01,
+        loss_l2=0.0001
+    )
+    print(model.summary())
+    print('Traiing model...')
+    model.fit(X_train,
+              y_train,
+              validation_data=(X_val, y_val),
+              epochs=18,
+              batch_size=128
+              )
+    print('Model trained')
+    print('saving model...')
+    model.save(os.path.join(os.path.abspath('data/model_weights'), 'new_bi_model_2.h5'))
+    print('doone')
+    del model
+    model = load_model('data/model_weights/new_bi_model_2.h5')
+    print(model.summary())
+    tweets = ['Fuck you man i hate you sad hate shit', 'i love you i am so happy :)']
+    predict(tweets, model_weights='data/model_weights/model_weights_2.h5')
+    '''
     
 
 
-
-    #model = load_model('./data/model_weights/new_bi_model_1.h5', custom_objects={'Attention':Attention()})
-    #print(model.summary())
-    '''
-    tweet = ['Fuck you man I hate you bad sad hate shit :/', 'I love you I am so happy this is so good great :)',
-    'this is the worst game i have ever play #shit', 'thanks man this is brilliant, wonderful game :)']
-    tweet = preprocessor.preprocess_tweets(tweet)
-    pad = extractor.get_padded_seq(tweet)
-    for padded in pad:
-        padded = np.array([padded])
-        predictoin = model.predict(padded)
-        if np.argmax(predictoin) == 2:
-            print('negative')
-        elif np.argmax(predictoin) == 1:
-            print('positive')
-        else:
-            print('neutral')
-    '''
-'''
-TODO:
-    - fix labels order
-    - create function to predict
-    - deployment
-'''
-
-
-    
 

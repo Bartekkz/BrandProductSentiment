@@ -77,6 +77,7 @@ class tweetsPreprocessor(BaseEstimator, TransformerMixin):
         path = 'data/tweets/pickled/processed_tweets.pickle' 
         if self.load:
             if os.path.exists(path):
+                print('PATH EXISTS')
                 with open(path, 'rb') as f:
                     processed_tweets = pickle.load(f)
 

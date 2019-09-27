@@ -124,9 +124,9 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
     return model
 
 
-def predict(tweet, model_weights='data/model_weights/new_bi_model_1.h5'):
+def predict(tweet, model_weights='data/model_weights/new_bi_model_2.h5'):
     curr_time = time.time()
-    MAXLEN = 40 
+    MAXLEN = 50 
     CORPUS = 'datastories.twitter'
     DIM = 300
     _, word_map = get_embeddings(CORPUS, DIM)  

@@ -47,6 +47,7 @@ class WordVectorsManager:
 
   def read(self):
     _parsed_file = os.path.join(self.data_path, self.parsed_fname)
+    print(_parsed_file)
     if os.path.exists(_parsed_file):
       with open(_parsed_file, 'rb') as f:
         return pickle.load(f)
