@@ -7,4 +7,20 @@
 
 .wrapper {
     width: 100%;
+    height: 100vh;
+    border: 2px solid black;
+}
+
+.wrapper .header {
+    padding: 5%;
+    font-size: 1.2em;
+    border: 2px solid blue;
+    font-family: 'Permanent Marker', cursive;
+
+}
+
+input[type='button']{
+    width: 10%;
+    height: 60px;
+    color: blue;
 }
