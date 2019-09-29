@@ -11,12 +11,24 @@
     border: 2px solid black;
 }
 
-.wrapper .header {
+.wrapper header {
     padding: 5%;
-    font-size: 1.2em;
     border: 2px solid blue;
-    font-family: 'Permanent Marker', cursive;
+    align-items: center;
+    justify-items: center;
+}
 
+.wrapper h2 {
+    font-size: 1.4em;
+    font-family: 'Pernament Marker', cursive;
+    padding-bottom: 3%;
+}
+
+.wrapper p {
+    padding: 5%;
+    font-size: 0.9em;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid green;
 }
 
 input[type='button']{
