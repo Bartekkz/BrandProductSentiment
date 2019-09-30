@@ -18,6 +18,10 @@
     justify-items: center;
 }
 
+.wrapper main {
+    padding: 15%;
+}
+
 .wrapper h2 {
     font-size: 1.4em;
     font-family: 'Pernament Marker', cursive;
@@ -27,12 +31,14 @@
 .wrapper p {
     padding: 5%;
     font-size: 0.9em;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Nunito', sans-serif;
     border: 1px solid green;
 }
 
 input[type='button']{
-    width: 10%;
-    height: 60px;
-    color: blue;
+    width: 35%;
+    height: 40px;
+    color: purple;
+    border: 3px solid black;
+    border-radius: 30%;
 }
