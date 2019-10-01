@@ -12,14 +12,14 @@
 }
 
 label {
-  background: #99c793;
+  background: #5192ad;
   border: none;
   border-radius: 50px;
   color: #fff;
   cursor: pointer;
   display: inline-block;
 	font-family: 'Poppins', sans-serif;
-	font-size: inherit;
+	font-size: inherit; 
   font-weight: 600;
   margin-bottom: 1rem;
   outline: none;
@@ -44,11 +44,11 @@ label {
 }
 
 .btn-1:hover {
-  background-color: green; 
+  background-color: rgb(31, 144, 219);
 }
 
 .btn-1:hover::before {
-  right: 75%;
+  right: 80%;
 }
 
 
@@ -60,24 +60,25 @@ label {
 
 .wrapper header {
     padding: 5%;
-    border: 2px solid blue;
     align-items: center;
     justify-items: center;
 }
 
 .wrapper main {
-    padding: 15%;
+  padding-top: 5%;
 }
 
 .wrapper h2 {
-    font-size: 1.7em;
-    font-family: 'Oswald', sans-serif;
-    padding-top: 3%;
+  font-size: 1.7em;
+  font-family: 'Oswald', sans-serif;
+  padding-top: 3%;
+  color: rgb(31, 144, 219);
+  text-decoration: underline;
 }
 
 .wrapper p {
-    padding: 8%;
-    text-align: center;
-    font-size: 0.9em;
-    font-family: 'Bitter', serif;
+  padding: 5%;
+  text-align: center;
+  font-size: 0.9em;
+  font-family: 'Bitter', serif;
 }
