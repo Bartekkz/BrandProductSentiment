@@ -51,6 +51,19 @@ label {
   right: 80%;
 }
 
+.btn-2 {
+  color: purple;
+  content: "\f15c";
+  font-family: "Font Awesome 5 Free";
+  font-size: 100%;
+  height: 100%;
+  right: 130%;
+  line-height: 3.3;
+  position: absolute;
+  top: 0px;
+  transition: all 0.3s;
+}
+
 
 .wrapper {
     width: 100%;
@@ -74,6 +87,12 @@ label {
   padding-top: 3%;
   color: rgb(31, 144, 219);
   text-decoration: underline;
+}
+
+.wrapper h3 {
+  font-size: 1.4em;
+  font-family: 'Oswald', sans-serif;
+  padding: 1%;
 }
 
 .wrapper p {
