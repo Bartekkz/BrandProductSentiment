@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href='../static/index.css'> 
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Bitter|Oswald:700&display=swap" rel="stylesheet"> 
   <title>CheckYourCompany</title>
 </head>
 <body>
@@ -14,15 +16,16 @@
     <div class='header'>
       <h2>Check Your Company on Twitter</h2>
       <p>
-        As we all now internet nowadays is a <br>powerful medium. 
-        So it is crucial to <br>have a good opinions about Your comapny<br> 
-        on social medias for example. If You want<br> to find out whenever 
-        peoples opinions<br> oon Twitter are positive/ negative or <br>neutral just 
-        drop a csv file with tweets<br> abour Your company or type your company's<br> name
+        As we all now internet nowadays is a powerful medium. 
+        So it is crucial to have a good opinions about Your comapny 
+        on social medias for example. If You want to find out whenever 
+        peoples opinions oon Twitter are positive/ negative or neutral just 
+        drop a csv file with tweets abour Your company or type your company's name
       </p> 
     </div>
     <div class='main'>
-      <input type='button' value='Tweet' onclick='console.log("clicked")'>
+      <input type='file' id='file'>
+      <label for='file' class='btn-1'>Upload</label>
     </div>
   </div>
 </body>
