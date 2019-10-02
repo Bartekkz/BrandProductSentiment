@@ -52,16 +52,13 @@ label {
 }
 
 .btn-2 {
-  color: purple;
-  content: "\f15c";
-  font-family: "Font Awesome 5 Free";
-  font-size: 100%;
-  height: 100%;
-  right: 130%;
-  line-height: 3.3;
-  position: absolute;
-  top: 0px;
-  transition: all 0.3s;
+  width: 25%;
+  height: 40px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 900;
+  background: #5192ad;
+  border: 0;
 }
 
 
@@ -86,12 +83,13 @@ label {
   font-family: 'Oswald', sans-serif;
   padding-top: 3%;
   color: rgb(31, 144, 219);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .wrapper h3 {
   font-size: 1.4em;
   font-family: 'Oswald', sans-serif;
+  font-weight: 900;
   padding: 1%;
 }
 
@@ -100,4 +98,11 @@ label {
   text-align: center;
   font-size: 0.9em;
   font-family: 'Bitter', serif;
+}
+
+.inpt-box {
+  color: black;
+  height: 35px;
+  border: 2px solid black;
+  border-radius: 50px;
 }
