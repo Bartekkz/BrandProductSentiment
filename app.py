@@ -15,13 +15,13 @@ def index():
 def read_csv():
     print('REAdinG')
     f = request.files.get('data_file')
-    data = pd.read_csv(f)
-    if not f:
-        'No file'
-    else:
+    try:
+        data = pd.read_csv(f)
         print(type(data))
         print(data.head())
-        return render_template('ans.html')
+        return render_template('ans.html', filename=data.value[1]) 
+    except Exception as e:
+        return render_template('ans.html', filename=e)
 
 
 
