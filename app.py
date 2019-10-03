@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import warnings
 import pandas as pd 
 warnings.filterwarnings('ignore')
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', filename=None)
 
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
@@ -21,7 +21,8 @@ def read_csv():
         print(data.head())
         return render_template('ans.html', filename=data.value[1]) 
     except Exception as e:
-        return render_template('ans.html', filename=e)
+        filename = {'exception':e}
+        return redirect(url_for('index', filename=filename))
 
 
 

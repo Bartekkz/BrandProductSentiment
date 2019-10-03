@@ -13,11 +13,11 @@
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <title>CheckYourCompany</title>
-
+  
   <script>
-    function raiseAlert(exception='zero') {
-      if (exception != 'zero'){
-        alert(exception);
+    function raiseAlert(exp='') {
+      if (exp){
+        alert(exp);
       }
     }
   </script>
@@ -41,7 +41,7 @@
       <form action='/read' method='POST' enctype="multipart/form-data">
         <input type='file' name='data_file' id='file'>
         <label for='file' class='btn-1'>Upload .csv</label>
-        <input type="submit" value='Calculate' onclick=raiseAlert({{exception}})>
+        <input type="submit" value='Calculate' onclick=raiseAlert()>
       </form>
       <h2 style='padding: 5% 0 1%;'>Test Analyzer</h2>
       <h2>{{answer}}</h2>
