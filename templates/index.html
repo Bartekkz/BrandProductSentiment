@@ -20,7 +20,6 @@
         $('input[type="file"]').change(function(e){
             var fileName = e.target.files[0].name;
             console.log(fileName);
-            console.log(e.target.files[0])
         });
     })};
   </script>
@@ -39,14 +38,18 @@
       <h3>Just drop Your csv file</h3>
       <i style='font-size:24px; padding:1% 0 3% 0;' class='far'>&#xf358;</i> 
       
-    </div>
+    </div> 
     <div class='main'>
-      <input type='file' id='file' onclick=getFilesName()>
-      <label for='file' class='btn-1'>Upload .csv</label>
-      <h2 style='padding: 8% 0 1%;'>Test Analyzer</h2>
+      <form action='/read' method='POST' enctype="multipart/form-data">
+        <input type='file' name='data_file' id='file' onclick=getFilesName()>
+        <label for='file' class='btn-1'>Upload .csv</label>
+        <input type="submit">
+      </form>
+      <h2 style='padding: 8%;'>Test Analyzer</h2>
+      <h2>{{answer}}</h2>
       <p>
-        Or You can simply try model on a single sentance and check
-        how accurate it is.
+        You can simply try model on a single sentence and check
+        Or how accurate it is.
       </p>
       <input type='text' class='inpt-box' placeholder="Enter Sentence" id='myInput' style='text-align: center;'>
     </div>
