@@ -9,8 +9,21 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Bitter|Oswald:700&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Mansalva|Pacifico&display=swap" rel="stylesheet"> 
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <title>CheckYourCompany</title>
+
+  <script>
+    function getFilesName(){
+      $(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            console.log(fileName);
+            console.log(e.target.files[0])
+        });
+    })};
+  </script>
 </head>
 <body>
   <div class='wrapper'>
@@ -25,16 +38,19 @@
       </p> 
       <h3>Just drop Your csv file</h3>
       <i style='font-size:24px; padding:1% 0 3% 0;' class='far'>&#xf358;</i> 
+      
     </div>
     <div class='main'>
-      <input type='file' id='file'>
+      <input type='file' id='file' onclick=getFilesName()>
       <label for='file' class='btn-1'>Upload .csv</label>
+      <h2 style='padding: 8% 0 1%;'>Test Analyzer</h2>
       <p>
         Or You can simply try model on a single sentance and check
         how accurate it is.
       </p>
-      <input class='inpt-box' placeholder="...">
+      <input type='text' class='inpt-box' placeholder="Enter Sentence" id='myInput' style='text-align: center;'>
     </div>
   </div>
 </body>
+</script>
 </html>
