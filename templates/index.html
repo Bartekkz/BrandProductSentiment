@@ -15,11 +15,6 @@
   <title>CheckYourCompany</title>
   
   <script>
-    function raiseAlert(exp='') {
-      if (exp){
-        alert(exp);
-      }
-    }
   </script>
 </head>
 <body>
@@ -41,7 +36,7 @@
       <form action='/read' method='POST' enctype="multipart/form-data">
         <input type='file' name='data_file' id='file'>
         <label for='file' class='btn-1'>Upload .csv</label>
-        <input type="submit" value='Calculate' onclick=raiseAlert()>
+        <input type="submit" value='Calculate'>
       </form>
       <h2 style='padding: 5% 0 1%;'>Test Analyzer</h2>
       <h2>{{answer}}</h2>
