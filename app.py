@@ -28,3 +28,8 @@ def read_csv():
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5002)
+
+'''
+TODO:
+    - add validation with js to index.html
+'''
