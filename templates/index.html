@@ -27,45 +27,19 @@
         negative or neutral you can use this site.
       </p> 
       <h3>Just drop Your csv file</h3>
-      <i style='font-size:24px; padding:1% 0 3% 0;' class='far'>&#xf358;</i> 
+      <i style='font-size:24px; padding:1% 0 2% 0;' class='far'>&#xf358;</i> 
       
     </div> 
     <div class='main'>
-      <form action='/read' method='POST' enctype="multipart/form-data">
+      <form action='/read' method='POST' enctype="multipart/form-data" style='padding: 3% 0 0%'>
         <input type='file' name='data_file' id='file'>
-        <script>
-          function validate_fileupload() {
-            hidAllDivs()
-            
-            var fileName = document.getElementById('file').value;
-            var allowed_extensions = 'csv';
-            var file_extenstion = fileName.split('.').pop().toLowerCase();
-            if (file_extenstion == allowed_extensions) {
-              console.log('GOT IT');
-              return true;
-            } else {
-              showHidDiv('wrongFile');
-            }
-          }
-
-        function showHidDiv(id) {
-          document.getElementById(id).style.visibility = 'visible';
-          document.getElementById(id).style.outline = '1px solid transparent';
-          document.getElementById(id).style.display = 'block';
-        }
-
-        function hidAllDivs() {
-          document.getElementById('wrongFile').style.visibility = 'hidden';
-        }
-
-
-        </script>
         <label for='file' class='btn-1'>Upload .csv</label>
-        <input type="submit" value='Calculate' onchange="validate_fileupload()">
-        <p id='wrongFile' class='orange hidden' style='padding: 0'>Load a csv file!</p>
+        <div>
+        <input type="submit" value='Calculate', style='position: relative;'>
+        <p id='errorMsg' class='orange'>{{error}}</p>
+        </div>
       </form>
-      <h2 style='padding: 5% 0 1%;'>Test Analyzer</h2>
-      <h2>{{answer}}</h2>
+      <h2 style='padding:0%;'>Test Analyzer</h2>
       <p style='padding: 2%;'>
         You can simply try model on a single sentence and check
         Or how accurate it is.
