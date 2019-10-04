@@ -6,10 +6,9 @@ import pandas as pd
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', filename=None)
+    return render_template('index.html')
 
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
@@ -19,10 +18,9 @@ def read_csv():
         data = pd.read_csv(f)
         print(type(data))
         print(data.head())
-        return render_template('end.html', filename=data.value[1]) 
-    except Exception:
-        return redirect(url_for('index'))
-
+        return render_template('end.html', data=data.value[1]) 
+    except:
+        return render_template('index.html', error='Load csv file!')
 
 
 if __name__ == '__main__':
