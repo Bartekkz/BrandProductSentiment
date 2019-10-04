@@ -14,8 +14,6 @@
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <title>CheckYourCompany</title>
   
-  <script>
-  </script>
 </head>
 <body>
   <div class='wrapper'>
@@ -35,8 +33,36 @@
     <div class='main'>
       <form action='/read' method='POST' enctype="multipart/form-data">
         <input type='file' name='data_file' id='file'>
+        <script>
+          function validate_fileupload() {
+            hidAllDivs()
+            
+            var fileName = document.getElementById('file').value;
+            var allowed_extensions = 'csv';
+            var file_extenstion = fileName.split('.').pop().toLowerCase();
+            if (file_extenstion == allowed_extensions) {
+              console.log('GOT IT');
+              return true;
+            } else {
+              showHidDiv('wrongFile');
+            }
+          }
+
+        function showHidDiv(id) {
+          document.getElementById(id).style.visibility = 'visible';
+          document.getElementById(id).style.outline = '1px solid transparent';
+          document.getElementById(id).style.display = 'block';
+        }
+
+        function hidAllDivs() {
+          document.getElementById('wrongFile').style.visibility = 'hidden';
+        }
+
+
+        </script>
         <label for='file' class='btn-1'>Upload .csv</label>
-        <input type="submit" value='Calculate'>
+        <input type="submit" value='Calculate' onchange="validate_fileupload()">
+        <p id='wrongFile' class='orange hidden' style='padding: 0'>Load a csv file!</p>
       </form>
       <h2 style='padding: 5% 0 1%;'>Test Analyzer</h2>
       <h2>{{answer}}</h2>

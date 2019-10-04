@@ -105,3 +105,18 @@ label {
   border: 2px solid black;
   border-radius: 50px;
 }
+
+.hidden {
+  visibility: hidden;
+  display: none;
+  margin: 7px 0;
+  width: 360px;
+  font-size: 11px;
+}
+
+.orange {
+    color: #f46108;
+}
+
+
+
