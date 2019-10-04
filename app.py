@@ -19,10 +19,9 @@ def read_csv():
         data = pd.read_csv(f)
         print(type(data))
         print(data.head())
-        return render_template('ans.html', filename=data.value[1]) 
-    except Exception as e:
-        filename = {'exception':e}
-        return redirect(url_for('index', filename=filename))
+        return render_template('end.html', filename=data.value[1]) 
+    except Exception:
+        return redirect(url_for('index'))
 
 
 
