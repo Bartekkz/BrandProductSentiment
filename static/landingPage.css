@@ -7,7 +7,7 @@
 
 .wrapper {
   width: 100%;
-  padding: 0%;
+  padding: 10%;
   height: 100vh;
   background: linear-gradient(#36d1dc, #5b86e5);
   background-size: 200% 200%;
@@ -30,18 +30,25 @@
     font-family: 'Pernament Marker', cursive;
 }
 
-h2 {
+.header h2 {
     font-size: 1.5em;
-    font-family: 'Righteous', cursive;
     padding: 0 0 3%;
-    color: #2aaeb0;
-    text-decoration: underline;
+    color: snow;
+    text-decoration: none; 
 }
+
+
+.header i {
+  color: white; 
+  padding: 3%;
+}
+
 
 .header p {
     font-size: 0.9em;
     padding: 5%;
-    color: #fff;
+    color: #272e2e;
+    font-weight: 500;
 }
 
 input[type='button']{
@@ -82,6 +89,15 @@ input:hover {
   }
 }
 
+@media only screen and (max-width: 375px){
+  .header h2 {
+    font-size: 1.35em;
+  }
+  input[type='button'] {
+    width: 30%;
+  }
+}
+
 @media only screen and (min-width: 411px){
   .wrapper input {
     font-size: 18px;
@@ -90,13 +106,20 @@ input:hover {
 
 @media only screen and (min-width: 768px) {
   .wrapper {
-    padding: 10% 0%;
+    padding: 12% 0%;
   }
   .wrapper input {
     height: 50px;
     font-size: 2.0em;
     border: 3px solid #fff;
     border-radius: 20px;
+  }
+  .header h2 {
+    font-size: 2.0em;
+  }
+  .header p {
+    font-size: 1.0em;
+    padding-bottom: 1%;
   }
 }
 
