@@ -16,7 +16,7 @@ def end():
 
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
-    print('REAdinG')
+    print('reading...')
     f = request.files.get('data_file')
     try:
         data = pd.read_csv(f)
