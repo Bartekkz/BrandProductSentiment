@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href='../static/landingPage.css'> 
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Bitter|Oswald:700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Mansalva|Pacifico&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Permanent+Marker|Righteous&display=swap" rel="stylesheet"> 
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>CheckYourCompany</title>
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='header'>
+            <h2>Check Your Company on Twitter</h2>
+            <i class="fab fa-twitter fa-3x" style='color: #fff;'></i>
+            <p>
+                Social medias are a really powerful tools nowadays, so it is crucial for Your
+                company to have good opinions on them. You can use this analyzer of tweets
+                to find out what people think about Your products and company overall
+            </p>
+        </div>
+        <input type='button' value='Analyze' onclick="window.location.href='{{ url_for("end") }}'>
+        <input type='button' value='Pito' onclick="window.location.href='{{ url_for("index") }}'>
+        <input type='button' value='Test Analyzer' onclick="window.location.href='{{ url_for("end") }}'>
+        <input type='button' value='Bart' onclick="window.location.href='{{ url_for("end") }}'>
+    </div>
+</body>
+</html>

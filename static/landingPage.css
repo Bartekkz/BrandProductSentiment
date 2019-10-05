@@ -1,0 +1,126 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 0%;
+  height: 100vh;
+  background: linear-gradient(#36d1dc, #5b86e5);
+  background-size: 200% 200%;
+  position: relative;
+  animation: change 8s ease-in-out infinite;
+  justify-content: center;
+  align-content: center;  
+  text-align: center;
+  display: inline-block;
+  border: 1px solid black;
+}
+
+.header {
+    width: 100%;
+    padding: 2% 0 7%;
+    position: relative;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Pernament Marker', cursive;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-family: 'Righteous', cursive;
+    padding: 0 0 3%;
+    color: #2aaeb0;
+    text-decoration: underline;
+}
+
+.header p {
+    font-size: 0.9em;
+    padding: 5%;
+    color: #fff;
+}
+
+input[type='button']{
+  width: 20%;
+  height: 30px;
+  display: inline-block;
+  color: #fff;
+  background-color: transparent; 
+  border: 2px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Amatic SC', cursive;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+  transition: all 1.2s ease-in-out;
+  box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4); 
+  line-height: 100%;
+}
+
+input:hover {
+  background-color: pink;
+  box-shadow: 0px 37px 20px -20px rgba(0,0,0,0.2);
+  transform: translate(0px, -10px) scale(1.4);
+}
+
+@keyframes change {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@media only screen and (min-width: 411px){
+  .wrapper input {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    padding: 10% 0%;
+  }
+  .wrapper input {
+    height: 50px;
+    font-size: 2.0em;
+    border: 3px solid #fff;
+    border-radius: 20px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .wrapper {
+    padding: 10% 0%;
+  }
+  .wrapper input {
+    height: 60px;
+    font-size: 2.5em;
+    border: 3px solid #fff;
+    border-radius: 20px;
+    letter-spacing: 2px;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .wrapper {
+    padding: 10% 0%;
+  }
+  .wrapper input {
+    width: 15%;
+    height: 60px;
+    font-size: 45px;
+    border: 3px solid #fff;
+  }
+}
