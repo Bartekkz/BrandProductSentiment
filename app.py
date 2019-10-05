@@ -8,7 +8,11 @@ warnings.filterwarnings('ignore')
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('landingPage.html')
+
+@app.route('/end')
+def end():
+    return render_template('end.html')
 
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
