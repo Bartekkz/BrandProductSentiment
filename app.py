@@ -14,6 +14,17 @@ def index():
 def end():
     return render_template('end.html')
 
+
+@app.route('/analyze')
+def analyze():
+    return render_template('analyze.html')
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
+
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
     print('reading...')
