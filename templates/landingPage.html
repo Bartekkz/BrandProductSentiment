@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class='wrapper'>
+        <h2 style='position:absolute; bottom:0; left:0; color:#fff; font-size: 0.7em;'> © 2019 Bartek Szmelczynski.  All rights reserved. </h2>
         <div class='header'>
             <h2>Check Your Company on Twitter</h2>
             <hr>
@@ -26,14 +27,15 @@
                 company to have good opinions on them. You can use this analyzer of tweets
                 to find out what people think about Your products and company overall
             </p>
+
         </div>
         <div class='main'>
             <input type='button' value='Analyze' onclick="window.location.href='{{ url_for("analyze") }}'">
             <input type='button' value='Test Analyzer' onclick="window.location.href='{{ url_for("test") }}'">
             <input type='button' value='Bart' onclick="window.location.href='{{ url_for("end") }}'>
-            
-            <p style='position: absolute; bottom: 0; left: 0;; color:#fff; font-size: 0.7em;'> © 2019 Bartek Szmelczynski.  All rights reserved. </p>
+
         </div>
+
     </div>
 </body>
 </html>

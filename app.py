@@ -17,7 +17,7 @@ def end():
 
 @app.route('/analyze')
 def analyze():
-    return render_template('analyze.html')
+    return render_template('analyze.html', error='')
 
 
 @app.route('/test')
@@ -43,5 +43,7 @@ if __name__ == '__main__':
 
 '''
 TODO:
-    - add validation with js to index.html
+    - finish route for predicting from csv file
+    - create test analyzer route
+    - add navbar
 '''
