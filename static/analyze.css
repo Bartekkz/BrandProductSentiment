@@ -36,11 +36,20 @@ ul {
   justify-items: center;
 }
 
-[type="file"] {
+
+input[type="file"] { 
+  z-index: -1;
+  position: absolute;
+  opacity: 0;
   height: 0;
   overflow: hidden;
   width: 0;
 }
+
+input:focus + label {
+  outline: 2px solid;
+}
+
 
 label {
   background: transparent;
@@ -122,29 +131,20 @@ label {
 }
 
 
-.sth {
-  width: 20%;
-  height: 30px;
-  display: inline-block;
-  color: #fff;
-  background-color: transparent; 
-  border: 2px solid #fff;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 15px;
-  font-family: 'Amatic SC', cursive;
-  font-weight: 900;
-  text-transform: uppercase;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4); 
-  line-height: 100%;
-}
 
 input:hover {
   background-color: pink;
   box-shadow: 0px 37px 20px -20px rgba(0,0,0,0.2);
   transform: translate(0px, -10px) scale(1.2);
+}
+
+.orange {
+  color: #636b75;
+  font-weight: 900;
+}
+
+#file-upload-filename {
+  color: #fff;
+  font-weight: 900;
 }
 

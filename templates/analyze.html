@@ -12,14 +12,33 @@
     <div class='wrapper'>
         <div class='main'>
             <form action='/read' method='POST' enctype="multipart/form-data" style='padding: 3% 0 0%'>
-                <input type='file' name='data_file' id='file'>
-                <label for='file' class='button'><span>Upload .csv</span></label>
+                <div id="file-upload-filename"></div> 
+                <input type='file' name='data_file' id='file-upload'>
+                <label for='file-upload' class='button'><span>Upload .csv</span></label>
                 <div>
                     <input class='button1' type="submit" value='Calculate'>
                 </div> 
-            <p id='errorMsg' class='orange' style='padding: 3%;'>{{error}}</p>
+                <p id='errorMsg' class='orange' style='padding: 3%;'>{{error}}</p>
             </form>            
         </div>
     </div>
+    <script>
+    var input = document.getElementById( 'file-upload' );
+    var infoArea = document.getElementById( 'file-upload-filename' );
+
+    input.addEventListener( 'change', showFileName );
+
+    function showFileName( event ) {
+    
+        // the change event gives us the input it occurred in 
+        var input = event.srcElement;
+        
+        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+        var fileName = input.files[0].name;
+        
+        // use fileName however fits your app best, i.e. add it into a div
+        infoArea.textContent = 'File name: ' + fileName;
+    }
+    </script>
 </body>
 </html>
