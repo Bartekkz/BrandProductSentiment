@@ -82,6 +82,14 @@ input:hover {
   transform: translate(0px, -10px) scale(1.4);
 }
 
+/* remove border of button for firefor browser*/
+input[type='button']::-moz-focus-inner {
+  border: 0;
+}
+
+
+
+
 @keyframes change {
   0% {
     background-position: 0 50%;
