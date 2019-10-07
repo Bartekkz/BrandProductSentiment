@@ -46,4 +46,5 @@ TODO:
     - finish route for predicting from csv file
     - create test analyzer route
     - add navbar
+    - change text of error to sth like 'do not forget to upload csv file :)'
 '''
