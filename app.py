@@ -36,7 +36,7 @@ def read_csv():
         return render_template('end.html', data=data.value[1]) 
     except:
         return render_template('analyze.html', error='You can only load csv files')
-
+   
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5002)
