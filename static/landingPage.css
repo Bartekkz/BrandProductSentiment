@@ -87,9 +87,6 @@ input[type='button']::-moz-focus-inner {
   border: 0;
 }
 
-
-
-
 @keyframes change {
   0% {
     background-position: 0 50%;
