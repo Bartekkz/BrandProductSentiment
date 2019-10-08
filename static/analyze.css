@@ -74,6 +74,7 @@ label {
   border-radius: 4px;
   background: linear-gradient(-45deg, #36d1dc, #5b86e5);
   border: 2px solid #fff;
+  border-radius: 50px;
   color: #fff !important;
   text-align: center;
   font-size: 1.2em;
@@ -117,8 +118,9 @@ label {
   text-decoration: none;
   background: linear-gradient(-45deg, #36d1dc, #5b86e5);
   font-weight: 900;
-  padding: 20px;
+  width: 10%;
   border: 2px solid #fff !important;
+  border-radius: 50px;
   display: inline-block;
   transition: all 0.4s ease 0s;
   font-family: 'Amatic SC', cursive;
@@ -129,8 +131,6 @@ label {
   background: pink;
   transition: all 0.4s ease 0s;
 }
-
-
 
 input:hover {
   background-color: pink;
