@@ -139,9 +139,14 @@ def predict(tweet, model):
     for pred in prediction:
         if np.argmax(pred) == 2:
             print('negative')
+            return 'negative'
         elif np.argmax(pred) == 1:
             print('positive')
+            return 'positive'
         else:
             print('neutral')
+            return 'neutral'
     delta = time.time() - curr_time
     print(f'Predicting took: {delta} seconds')
+    return delta
+    

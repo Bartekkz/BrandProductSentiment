@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
+import os
 import warnings
 warnings.filterwarnings('ignore')
+import tensorflow as tf
+
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd   
 import requests
@@ -11,6 +14,12 @@ from utilities.tweets_preprocessor import tweetsPreprocessor
 from utilities.data_loader import get_embeddings
 from embeddings.EmbExtractor import EmbExtractor
 from models.rnn_model import predict
+from kutilities.layers import Attention
+import numpy as np
+
+np.random.seed(44)
+
+
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
@@ -21,7 +30,9 @@ def index():
 @app.route('/api/', methods=['POST'])
 def predict_tweet():
   data = request.get_json()
-  return data 
+  with graph.as_default():
+      prediction = predict(data, model) 
+  return prediction 
 
 @app.route('/end')
 def end():
@@ -62,7 +73,10 @@ def read_csv():
    
 
 if __name__ == '__main__':
-    #model = load_model('./')
+    model_weights = 'data/model_weights/new_bi_model_2.h5'
+    model = load_model(model_weights, custom_objects={'Attention':Attention()})
+    global graph
+    graph = tf.get_default_graph()
     app.run(debug=True, host='localhost', port=5002)
 
 '''
