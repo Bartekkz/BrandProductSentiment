@@ -30,9 +30,9 @@ def index():
 @app.route('/api/', methods=['POST'])
 def predict_tweet():
   data = request.get_json()
-  with graph.as_default():
-      prediction = predict(data, model) 
-  return prediction 
+  #with graph.as_default():
+  #    prediction = predict(data, model) 
+  return data 
 
 @app.route('/end')
 def end():
@@ -54,29 +54,33 @@ def get_text():
   text = request.form['textInp']
   print(text)
   data = json.dumps(text)
-  url = 'http://localhost:5002/api/'
   r = requests.post(url, data=data, headers=headers)
   return r.text 
 
 
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
-    print('reading...')
+    print('Reading...')
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     f = request.files.get('data_file')
     try:
         data = pd.read_csv(f)
-        print(type(data))
-        print(data.head())
-        return render_template('end.html', data=data.value[1]) 
+        point = data.value[1]
+        data = json.dumps(point)
+        r = requests.post(url, data=data, headers=headers)
+        print(r)
+        print(r.text)
+        return r.text 
     except:
         return render_template('analyze.html', error='You can only load csv files')
    
 
 if __name__ == '__main__':
-    model_weights = 'data/model_weights/new_bi_model_2.h5'
-    model = load_model(model_weights, custom_objects={'Attention':Attention()})
-    global graph
-    graph = tf.get_default_graph()
+    url = 'http://localhost:5002/api/'
+    #model_weights = 'data/model_weights/new_bi_model_2.h5'
+    #model = load_model(model_weights, custom_objects={'Attention':Attention()})
+    #global graph
+    #graph = tf.get_default_graph()
     app.run(debug=True, host='localhost', port=5002)
 
 '''
