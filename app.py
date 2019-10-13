@@ -20,7 +20,6 @@ import numpy as np
 np.random.seed(44)
 
 
-
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -34,9 +33,11 @@ def predict_tweet():
   #    prediction = predict(data, model) 
   return data 
 
+
 @app.route('/end')
 def end():
   return render_template('end.html')
+
 
 @app.route('/analyze')
 def analyze():
