@@ -22,6 +22,7 @@ from sklearn.pipeline import Pipeline
 np.random.seed(44)
 
 if __name__ == '__main__':       
+    '''
     emb_matrix, word_map = get_embeddings('datastories.twitter', 300)
 
     pipeline = Pipeline([
@@ -59,14 +60,11 @@ if __name__ == '__main__':
     model.save(os.path.join(os.path.abspath('data/model_weights'), 'new_bi_model_1.h5'))
     print('doone')
     del model
-    model = load_model('data/model_weights/new_bi_model_1.h5')
+    '''
+    model = load_model('data/model_weights/new_bi_model_1.h5', custom_objects={'Attention':Attention()})
     print(model.summary())
 
 
-'''
-TODO:
-    - check source code of Attention layer to fix the problem
-'''
     
 
 
