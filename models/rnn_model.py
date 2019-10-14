@@ -46,6 +46,7 @@ def embedding_layer(embeddings, maxlen, trainable=False, masking=False,
 
     return _embedding
 
+
 def get_rnn_layer(layer_type=LSTM, cells=64, bi=False, return_sequences=True,
         dropout=0., recurrent_dropout=0., implementation=1,  l2_reg=0):
     rnn = layer_type(cells, return_sequences=return_sequences, dropout=dropout, 
@@ -61,6 +62,7 @@ def get_rnn_layer(layer_type=LSTM, cells=64, bi=False, return_sequences=True,
         return (Bidirectional(rnn))
     else:
         return rnn  
+
 
 def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
                                                 cells=64, layers=1, **kwargs): 

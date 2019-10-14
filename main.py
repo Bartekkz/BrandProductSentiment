@@ -18,8 +18,6 @@ from models.rnn_model import build_attention_rnn
 from models.rnn_model import predict
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
 
 np.random.seed(44)
 
@@ -39,7 +37,7 @@ if __name__ == '__main__':
         layers=2,
         trainable_emb=False,
         bidirectional=True,
-        attention=None,
+        attention='simple',
         dropout_attention=0.5,
         layer_dropout_rnn=0.5,
         dropout_rnn=0.5,
