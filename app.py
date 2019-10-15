@@ -63,16 +63,23 @@ def get_text():
 
 @app.route('/read', methods=['POST', 'GET'])		
 def read_csv():
+		final_col = ''
+		approved_col_names = ['tweets', 'text', 'tweet', 'value', 'values']
 		print('Reading...')
 		headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
 		f = request.files.get('data_file')
 		try:
 				data = pd.read_csv(f)
-				print(data.head())
-				point = data.value[1]
+				print(data.columns)
+				for col_name in data.columns:
+						if col_name in approved_col_names:
+								final_col = col_name
+								break
+				point = data[final_col][1]
 				return render_template('end.html', data=point) 
 		except:
-				return render_template('analyze.html', error='You can only load csv files')
+				return render_template('analyze.html', error=f'Remember You can only load .csv file and it has to \
+								contain one of the followings columns:\n{approved_col_names}')
 
 
 if __name__ == '__main__':
