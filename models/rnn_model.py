@@ -138,17 +138,22 @@ def predict(tweet, model):
     ])
     pad = pipeline.transform(tweet) 
     prediction = model.predict(pad)
+    preds = []
     for pred in prediction:
         if np.argmax(pred) == 2:
             print('negative')
-            return 'negative'
+            preds.append('negative')
+            #return 'negative'
         elif np.argmax(pred) == 1:
             print('positive')
-            return 'positive'
+            preds.append('positive')
+            #return 'positive'
         else:
             print('neutral')
-            return 'neutral'
+            preds.append('neutral')
+            #return 'neutral'
     delta = time.time() - curr_time
     print(f'Predicting took: {delta} seconds')
-    return delta
+    return preds
+   
     
