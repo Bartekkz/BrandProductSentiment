@@ -5,7 +5,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import tensorflow as tf
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import pandas as pd		
 import requests
 import json
@@ -32,8 +32,8 @@ def predict_tweet():
 		data = request.get_json()
 		with graph.as_default():
 				prediction = predict(data, pipeline, model) 
-		data = {'preds':prediction}
-		return data 
+		#data = {'preds':prediction}
+		return jsonify(data)
 
 
 @app.route('/end')
@@ -68,12 +68,9 @@ def read_csv():
 		f = request.files.get('data_file')
 		try:
 				data = pd.read_csv(f)
+				print(data.head())
 				point = data.value[1]
-				data = json.dumps(point)
-				r = requests.post(url, data=data, headers=headers)
-				print(r)
-				print(r.text)
-				return r.text 
+				return render_template('end.html', data=point) 
 		except:
 				return render_template('analyze.html', error='You can only load csv files')
 
