@@ -7,6 +7,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import numpy as np
 np.seterr(all='ignore')
 import string
+import time
 from keras.utils import to_categorical
 from keras.layers import LSTM, Bidirectional, Dense, Embedding 
 from kutilities.layers import Attention, AttentionWithContext
@@ -21,8 +22,7 @@ from sklearn.pipeline import Pipeline
 
 np.random.seed(44)
 
-if __name__ == '__main__':       
-    '''
+def train_model():
     emb_matrix, word_map = get_embeddings('datastories.twitter', 300)
 
     pipeline = Pipeline([
@@ -59,11 +59,14 @@ if __name__ == '__main__':
     print('saving model...')
     model.save(os.path.join(os.path.abspath('data/model_weights'), 'new_bi_model_1.h5'))
     print('doone')
-    del model
-    '''
-    model = load_model('data/model_weights/new_bi_model_1.h5', custom_objects={'Attention':Attention()})
-    print(model.summary())
 
+
+if __name__ == '__main__':       
+    model = load_model('data/model_weights/new_bi_model_1.h5', custom_objects={'Attention':Attention()})
+    tweets = ['fuck you man', 'this is the best event I have ever been on :)', 'today is monday',
+            'phone is the worst!']
+    preds = predict(tweets, model) 
+    
 
     
 
