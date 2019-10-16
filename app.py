@@ -75,7 +75,7 @@ def get_text():
     print(text)
     data = json.dumps(text)
     r = requests.post(url, data=data, headers=headers)
-    return r.text 
+    return render_template('end.html', data=r.text)
 
 
 @app.route('/read', methods=['POST', 'GET'])    
@@ -125,8 +125,7 @@ if __name__ == '__main__':
 #TODO:
 '''
     - add navbar
-    - add helper function to calcuate % of positive tweets, in utilities directory
-    - fix reciving json from diffrent sources
+    - add helper function to calcuate % of positive tweets, in utilities directory 
 '''
 
 

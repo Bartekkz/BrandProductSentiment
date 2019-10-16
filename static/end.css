@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 10% 0%;
+  height: 100vh;
+  background: linear-gradient(#36d1dc, #5b86e5);
+  background-size: 200% 200%;
+  position: relative;
+  animation: change 8s ease-in-out infinite;
+}

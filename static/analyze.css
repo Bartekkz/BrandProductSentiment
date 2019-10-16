@@ -14,7 +14,7 @@ ul {
   height: 100vh;
   padding: 10%;
   background: linear-gradient(#36d1dc, #5b86e5);
-  background-size: 100% 100%;
+  background-size: 200% 200%;
   text-align: center;
   display: flex;
   justify-content: center;
