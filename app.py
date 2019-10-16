@@ -30,10 +30,17 @@ def index():
 @app.route('/api/', methods=['POST', 'GET'])
 def predict_tweet():
     data = request.get_json()
-    with graph.as_default():
-        prediction = predict(data, pipeline, model) 
+    #with graph.as_default():
+    #    prediction = predict(data, pipeline, model) 
     #data = {'preds':prediction}
-    return jsonify({'prediction':prediction})
+    #return jsonify({'prediction':prediction})
+    tweets = list(data.values())
+    num = 0
+    print(len(tweets))
+    for tweet in tweets:
+      print(tweet)
+      num += 1
+    return jsonify(num) 
 
 
 @app.route('/end')
@@ -73,17 +80,21 @@ def read_csv():
             if col_name in approved_col_names:
                 final_col = col_name
                 break
-        point = data[final_col][2]
-        data = json.dumps(point)
+        point = data[final_col][1:5]
+        data = point.to_json() 
+        print(data, 'POINT')
+        print(type(point)) 
         r = requests.post(url, data=data, headers=headers)
         return r.text
     except:
+        print('fail')
         return render_template('analyze.html', error=f'Remember You can only load .csv file and it has to \
                 contain one of the followings columns: {approved_col_names}')
 
 
 if __name__ == '__main__':
     url = 'http://localhost:5002/api/'
+    '''
     model_weights = os.path.abspath('data/model_weights/new_bi_model_1.h5')
     model = load_model(model_weights, custom_objects={'Attention':Attention()})
     global graph
@@ -96,11 +107,12 @@ if __name__ == '__main__':
         ('preprocessor', tweetsPreprocessor(load=False)),
         ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
+   '''
     app.run(debug=True, host='localhost', port=5002)
+   
 
 '''
 TODO:
-    - finish route for predicting from csv file
-    - create test analyzer route
     - add navbar
+    - add helper function to calcuate % of positive tweets, in utilities directory
 '''
