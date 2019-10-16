@@ -30,11 +30,17 @@ def index():
 @app.route('/api/', methods=['POST', 'GET'])
 def predict_tweet():
     data = request.get_json()
-    #with graph.as_default():
-    #    prediction = predict(data, pipeline, model) 
-    #data = {'preds':prediction}
-    #return jsonify({'prediction':prediction})
-    if type(data) 
+    if isinstance(data, str):
+        return data      
+    '''
+    CODE:
+    with graph.as_default():
+        prediction = predict(data, pipeline, model)  
+    data = {'preds':prediction}
+    return jsonify({'prediction':prediction})
+    '''
+    #TODO:
+    #change predict method to sum up neutral, positive and negative tweet and return some number
     print(data)
     print(type(data))
     print(list(data))
@@ -42,8 +48,8 @@ def predict_tweet():
     num = 0
     print(len(tweets))
     for tweet in tweets:
-      print(tweet)
-      num += 1
+        print(tweet)
+        num += 1
     return jsonify(num) 
 
 
@@ -115,9 +121,19 @@ if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=5002)
    
 
+
+#TODO:
 '''
-TODO:
     - add navbar
     - add helper function to calcuate % of positive tweets, in utilities directory
     - fix reciving json from diffrent sources
 '''
+
+
+
+
+
+
+
+
+
