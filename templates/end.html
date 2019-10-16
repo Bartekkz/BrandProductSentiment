@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,13 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href='../static/end.css'>  
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>CheckYourCompany</title>
 </head>
 <body>
     <div class='wrapper'>
         <div class='main'>
-            <p id='errorMsg' class='orange' style='padding: 1%;'>{{data}}</p>
+            <div id="myBar" class="w3-container w3-green" style="height:24px;width:0%"></div>
+            <button  onclick='move()'>Click ME</button>
         </div>
-    </div>    
+    </div>
 </body>
 </html>
+<script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width = 0;
+  var id = setInterval(frame, 10);
+  function frame() {
+      if (width >= {{data}}) {
+      clearInterval(id);
+    } else {
+      width++; 
+      elem.style.width = width + '%'; 
+      document.getElementById("demo").innerHTML = width * 1  + '%';
+    }
+  }
+}
+</script>
+
+</body>
+</html>
+
