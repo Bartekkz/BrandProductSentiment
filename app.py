@@ -34,6 +34,10 @@ def predict_tweet():
     #    prediction = predict(data, pipeline, model) 
     #data = {'preds':prediction}
     #return jsonify({'prediction':prediction})
+    if type(data) 
+    print(data)
+    print(type(data))
+    print(list(data))
     tweets = list(data.values())
     num = 0
     print(len(tweets))
@@ -115,4 +119,5 @@ if __name__ == '__main__':
 TODO:
     - add navbar
     - add helper function to calcuate % of positive tweets, in utilities directory
+    - fix reciving json from diffrent sources
 '''
