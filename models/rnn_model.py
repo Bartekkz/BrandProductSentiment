@@ -11,6 +11,7 @@ from kutilities.layers import Attention, AttentionWithContext, MeanOverTime
 from sklearn.pipeline import Pipeline
 from utilities.data_loader import get_embeddings
 from utilities.tweets_preprocessor import tweetsPreprocessor
+from utilities.helper import sumSentiment
 from embeddings.EmbExtractor import EmbExtractor
 from keras.models import load_model
 
@@ -145,7 +146,9 @@ def predict(tweet, pipeline, model):
             preds.append('neutral')
             #return 'neutral'
     delta = time.time() - curr_time
+    pos, neu, neg = sumSentiment(preds)
     print(f'Predicting took: {delta} seconds')
+    print(pos, neu, neg)
     return preds
    
     
