@@ -38,3 +38,10 @@
     background: pink;
     transition: all 0.4s ease 0s;
 }
+
+.main p {
+    font-weight: 900;
+    padding: 1%;
+    font-family: 'Amatic SC', cursive;
+    color: #272e2e;
+}

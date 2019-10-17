@@ -25,7 +25,14 @@
             <div style='padding:3%'>
                 <button class='button' onclick='moveAll()'>Check</button>
             </div>
-        </div>
+            <div id='verdict' style='visibility:hidden;'>
+            {% if pos > neg %}
+                <p>The most opinions about Your company are <stan style='color:green'>POSITIVE</stan>!</p> 
+            {% else %} 
+                <p>The most opinions about Your company are <stan style='color:red'>NEGATIVE</stan>!</p> 
+            {% endif %}
+            </div>
+        </div>          
     </div>
 </body>
 </html>
@@ -36,10 +43,7 @@ function move(id, id2, data) {
   var elem2 = document.getElementById(id2);   
   elem2.style.Color = "black"
   var width = 0;
-  var id = setInterval(frame, 25);
-  console.log(elem)
-
-
+  var id = setInterval(frame, 30);
 
   function frame() {
       if (width >= data) {
@@ -60,9 +64,14 @@ async function moveAll() {
 
     for (var i=0;i<arrayLength;i++){
         move(ids[i], ids2[i], data[i]);
-        console.log(data[i]);
-        await sleep(1200);
+        if (data[i] > 50) {
+            await sleep(2000);
+        } else {
+            await sleep(1000);
+        }
     }
+    var verdict = document.getElementById('verdict')
+    verdict.style.visibility = 'visible'
 }
 
 function sleep(ms) {
