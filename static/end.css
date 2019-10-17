@@ -14,3 +14,27 @@
   position: relative;
   animation: change 8s ease-in-out infinite;
 }
+
+.main {
+    margin: 0% 5% 0% 5% ;
+}
+
+.button {
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: linear-gradient(-45deg, #36d1dc, #5b86e5);
+    font-weight: 900;
+    width: 15%;
+    border: 2px solid #fff !important;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.4s ease 0s;
+    font-family: 'Amatic SC', cursive;
+}
+
+.button:hover {
+    color: #ffffff !important;
+    background: pink;
+    transition: all 0.4s ease 0s;
+}

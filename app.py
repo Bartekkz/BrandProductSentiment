@@ -31,7 +31,7 @@ def index():
 def predict_tweet():
     data = request.get_json()
     if isinstance(data, str):
-        return data      
+        return data
     '''
     CODE:
     with graph.as_default():
@@ -41,12 +41,8 @@ def predict_tweet():
     '''
     #TODO:
     #change predict method to sum up neutral, positive and negative tweet and return some number
-    print(data)
-    print(type(data))
-    print(list(data))
     tweets = list(data.values())
-    num = 0
-    print(len(tweets))
+    num = 0 
     for tweet in tweets:
         print(tweet)
         num += 1
@@ -72,10 +68,10 @@ def test():
 def get_text():
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     text = request.form['textInp']
-    print(text)
     data = json.dumps(text)
     r = requests.post(url, data=data, headers=headers)
-    return render_template('end.html', data=r.text)
+    return r.text
+    #render_template('end.html', data=r.text)
 
 
 @app.route('/read', methods=['POST', 'GET'])    
@@ -85,17 +81,14 @@ def read_csv():
     f = request.files.get('data_file')
     try:
         data = pd.read_csv(f)
-        print(data.columns)
         for col_name in data.columns:
             if col_name in approved_col_names:
                 final_col = col_name
                 break
-        point = data[final_col][1:5]
+        point = data[final_col][0:32]
         data = point.to_json() 
-        print(data, 'POINT')
-        print(type(point)) 
         r = requests.post(url, data=data, headers=headers)
-        return r.text
+        return render_template('end.html', pos=30, neg=48, neu=22)
     except:
         print('fail')
         return render_template('analyze.html', error=f'Remember You can only load .csv file and it has to \
@@ -126,6 +119,7 @@ if __name__ == '__main__':
 '''
     - add navbar
     - add helper function to calcuate % of positive tweets, in utilities directory 
+    - try to adjust so it is green, red, white(or some other neutral color)
 '''
 
 

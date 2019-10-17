@@ -11,26 +11,62 @@
 <body>
     <div class='wrapper'>
         <div class='main'>
-            <div id="myBar" class="w3-container w3-green" style="height:24px;width:0%"></div>
-            <button  onclick='move()'>Click ME</button>
+            <p id='demo' style='color:green'>0%</p>
+            <div id="myBar" class="w3-container w3-green" style="height:24px;width:0%;
+            border:2px solid white;
+               border-radius: 50px; "></div>
+            <p id='demo1' style='color:gray'>0%</p>
+            <div id="myBar1" class="w3-container w3-dark-gray" style="height:24px;width:0%;
+            border:2px solid white;
+               border-radius: 50px; "></div>
+            <p id='demo2' style='color:red'>0%</p>
+            <div id="myBar2" class="w3-container w3-red" style="height:24px;width:0%;border:2px solid white;
+               border-radius: 50px; "></div>
+            <div style='padding:3%'>
+                <button class='button' onclick='moveAll()'>Check</button>
+            </div>
         </div>
     </div>
 </body>
 </html>
 <script>
-function move() {
-  var elem = document.getElementById("myBar");   
+function move(id, id2, data) {
+
+  var elem = document.getElementById(id);   
+  var elem2 = document.getElementById(id2);   
+  elem2.style.Color = "black"
   var width = 0;
-  var id = setInterval(frame, 10);
+  var id = setInterval(frame, 25);
+  console.log(elem)
+
+
+
   function frame() {
-      if (width >= {{data}}) {
+      if (width >= data) {
       clearInterval(id);
     } else {
       width++; 
       elem.style.width = width + '%'; 
-      document.getElementById("demo").innerHTML = width * 1  + '%';
+      document.getElementById(id2).innerHTML = width * 1  + '%';
     }
   }
+}
+
+async function moveAll() {
+    var ids = ["myBar", "myBar1", "myBar2"];
+    var ids2 = ["demo", "demo1", "demo2"];
+    var arrayLength = ids.length;
+    var data = [{{pos}}, {{neu}}, {{neg}}]
+
+    for (var i=0;i<arrayLength;i++){
+        move(ids[i], ids2[i], data[i]);
+        console.log(data[i]);
+        await sleep(1200);
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 </script>
 
