@@ -1,126 +1,140 @@
 * {
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
-  text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 ul {
-  display: inline-block;
+    display: inline-block;
 }
 
 .wrapper {
-  width: 100%;
-  height: 100vh;
-  padding: 10%;
-  background: linear-gradient(#36d1dc, #5b86e5);
-  background-size: 100% 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 10%;
+    background: linear-gradient(#36d1dc, #5b86e5);
+    background-size: 100% 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .wrapper h2 {
+    text-decoration: underline, overline;
+    color: white;
     font-size: 2.0em;
-}
-
-.main {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  display: inline-block;
-  height: 50vh;
-  text-align: center;
-  justify-content: center;
-  justify-items: center;
-}
-
-.wrapper h2 {
-  text-decoration: underline, overline;
-  color: white;
-  font-size: 2.0em;
-  font-family: 'Amatic SC', cursive;
+    font-family: 'Amatic SC', cursive;
+    font-size: 2.0em;
 }
 
 
 .wrapper p {
-  color: #272e2e;
-  font-size: 1.2em;
-  font-family: 'Amatic SC', cursive;
+    color: #272e2e;
+    font-size: 0.6em;
+    font-family: 'Amatic SC', cursive;
+}
+
+.main {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: inline-block;
+    height: 50vh;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
 }
 
 .main input[type='text']{
-  border: 2px solid white;
-  border-radius: 50px;
-  font-family: 'Amatic SC', cursive;
-  font-size: 1.0em;
-  background: linear-gradient(-90deg, #36d1dc, #5b86e5);
-  width: 80%;
-  color: white;
+    border: 2px solid white;
+    border-radius: 50px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.0em;
+    background: linear-gradient(-90deg, #36d1dc, #5b86e5);
+    width: 80%;
+    color: white;
 }
 
 .button1 {
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: linear-gradient(-45deg, #36d1dc, #5b86e5);
-  font-weight: 900;
-  width: 10%;
-  border: 2px solid #fff !important;
-  border-radius: 50px;
-  display: inline-block;
-  transition: all 0.4s ease 0s;
-  font-family: 'Amatic SC', cursive;
-  cursor: pointer;
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: linear-gradient(-45deg, #36d1dc, #5b86e5);
+    font-weight: 900;
+    width: 10%;
+    border: 2px solid #fff !important;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.4s ease 0s;
+    font-family: 'Amatic SC', cursive;
+    cursor: pointer;
 }
 
 .button1:hover {
-  color: #ffffff !important;
-  background: pink;
-  transition: all 0.4s ease 0s;
+    color: #ffffff !important;
+    background: pink;
+    transition: all 0.4s ease 0s;
+}
+
+#value {
+    padding: 12%;
+    font-size: 4.0em;
 }
 
 
 @media only screen and (min-width: 375px) {
-  .main input[type='text'] {
-    width: 80%;
-    font-size: 1.0em;
-  }
-  .main button[type='submit'] {
-    width: 12%;
-    font-size: 1.2em;
-  }
+    .main input[type='text'] {
+        width: 80%;
+        font-size: 1.0em;
+    }
+    .main button[type='submit'] {
+        width: 12%;
+        font-size: 1.2em; 
 }
 
 @media only screen and (min-width: 768px) {
-  .main input[type='text'] {
-    width: 70%;
-    font-size: 1.5em;
-  }
-  .main button[type='submit'] {
-    width: 12%;
-    font-size: 1.7em;
-  }
+    .main input[type='text'] {
+        width: 70%;
+        font-size: 1.5em;
+    }
+    .main button[type='submit'] {
+        width: 12%;
+        font-size: 1.7em;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .wrapper p {
+        font-size: 1.0em;
+    }
 }
 
 @media only screen and (min-width: 800px) {
-  .main input[type='text'] {
-    width: 75%;
-    font-size: 1.4em;
-  }
-  .main button[type='submit'] {
-    width: 10%;
-    font-size: 1.8em;
-  }
+    .main input[type='text'] {
+        width: 75%;
+        font-size: 1.4em;
+    }
+    .main button[type='submit'] {
+        width: 10%;
+        font-size: 1.8em;
+    }
 }
+
+@media only screen and (min-width: 1000px){
+    #value {
+        padding: 4%;
+    }
+}
+
 @media only screen and (min-width: 1300px) {
-  .main input[type='text'] {
-    width: 50%;
-    font-size: 1.5em;
-  }
-  .main button[type='submit'] {
-    width: 5%;
-    font-size: 1.8em;
-  }
+    .main input[type='text'] {
+        width: 50%;
+        font-size: 1.5em;
+    }
+    .main button[type='submit'] {
+        width: 5%;
+        font-size: 1.8em;
+    }
 }
