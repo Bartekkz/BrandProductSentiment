@@ -134,17 +134,13 @@ def predict(tweet, pipeline, model):
     preds = []
     for pred in prediction:
         if np.argmax(pred) == 2:
-            print('negative')
             preds.append('negative')
         elif np.argmax(pred) == 1:
-            print('positive')
             preds.append('positive')
         else:
-            print('neutral')
             preds.append('neutral')
     delta = time.time() - curr_time
     opinions = sumSentiment(preds)
-    print(pos, neu, neg)
     return opinions, delta
    
     
