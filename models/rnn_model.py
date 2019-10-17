@@ -143,9 +143,8 @@ def predict(tweet, pipeline, model):
             print('neutral')
             preds.append('neutral')
     delta = time.time() - curr_time
-    pos, neu, neg = sumSentiment(preds)
-    print(f'Predicting took: {delta} seconds')
+    opinions = sumSentiment(preds)
     print(pos, neu, neg)
-    return preds, delta
+    return opinions, delta
    
     
