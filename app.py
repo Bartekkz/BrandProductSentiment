@@ -3,8 +3,6 @@
 import os
 import warnings
 warnings.filterwarnings('ignore')
-import tensorflow as tf
-
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import pandas as pd   
 import requests
@@ -70,8 +68,8 @@ def get_text():
     text = request.form['textInp']
     data = json.dumps(text)
     r = requests.post(url, data=data, headers=headers)
-    return r.text
-    #render_template('end.html', data=r.text)
+    #return r.text
+    return render_template('test.html', value='Negative')
 
 
 @app.route('/read', methods=['POST', 'GET'])    
@@ -88,7 +86,7 @@ def read_csv():
         point = data[final_col][0:32]
         data = point.to_json() 
         r = requests.post(url, data=data, headers=headers)
-        return render_template('end.html', pos=60, neg=10, neu=30)
+        return render_template('end_csv.html', pos=60, neg=10, neu=30)
     except:
         print('fail')
         return render_template('analyze.html', error=f'Remember You can only load .csv file and it has to \

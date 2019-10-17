@@ -10,13 +10,29 @@
 <body>
     <div class='wrapper'>
         <div class='main'>
-          <form action='/test' method='POST'>
-            <br>
-            <br>
-            <input type='text' name='textInp' placeholder="Enter Sentence...">
-            <button class='button1' type="submit"><i class="fas fa-angle-double-right"></i></button>
-          </form>
+            <form action='/test' method='POST'>
+                <br>
+                <br>
+                <input type='text' name='textInp' placeholder="Enter Sentence...">
+                <button class='button1' type="submit" onclick='show()'>
+                <i class="fas fa-angle-double-right"></i></button>
+            </form>
+            <div id='value' style='visibility:hidden'>
+                {% if value == 'Negative' %}
+                <p>BAD</p>
+                {% elif value == 'Neutral' %} 
+                <p>Neu</p>
+                {% else %}
+                <p>GOOOD</p>
+                {% endif %}
+            </div>
         </div>
     </div>
+    <script>
+        function show(){
+            var value = document.getElementById('value');
+            value.style.visibility = 'visible';
+        }
+    </script>
 </body>
 </html>

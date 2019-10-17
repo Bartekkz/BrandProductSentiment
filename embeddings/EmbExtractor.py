@@ -13,8 +13,6 @@ from ekphrasis.classes.tokenizer import SocialTokenizer
 from ekphrasis.dicts.emoticons import emoticons
 
 
-
-
 class EmbExtractor(BaseEstimator, TransformerMixin):
     def __init__(self, word_idxs, maxlen=0, unk_policy='random', **kwargs):
         self.word_idxs = word_idxs
