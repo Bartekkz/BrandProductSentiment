@@ -88,7 +88,7 @@ def read_csv():
         point = data[final_col][0:32]
         data = point.to_json() 
         r = requests.post(url, data=data, headers=headers)
-        return render_template('end.html', pos=30, neg=48, neu=22)
+        return render_template('end.html', pos=70, neg=8, neu=22)
     except:
         print('fail')
         return render_template('analyze.html', error=f'Remember You can only load .csv file and it has to \
@@ -117,9 +117,8 @@ if __name__ == '__main__':
 
 #TODO:
 '''
-    - add navbar
-    - add helper function to calcuate % of positive tweets, in utilities directory 
-    - try to adjust so it is green, red, white(or some other neutral color)
+    -add css for all kinds of devices
+    - add navbar    
 '''
 
 
