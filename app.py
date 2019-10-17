@@ -71,13 +71,11 @@ def get_text():
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     text = request.form['textInp']
     data = json.dumps(text)
-    r = requests.post(url, data=data, headers=headers)
-    print(len(r.json()))
-    print(type(r.json()))
-    print(list(r.json())[0])
-    print(r.json().keys())
-    #return r.text
-    return render_template('test.html', value='visible')
+    r = requests.post(url, data=data, headers=headers) 
+    values = list(r.json().values())
+    delta = values[0]
+    sentiment = np.argmax(values[1])
+    return render_template('test.html', value='visible', sentiment=sentiment)
 
 
 @app.route('/read', methods=['POST', 'GET'])    

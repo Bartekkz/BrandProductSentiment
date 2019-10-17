@@ -18,9 +18,9 @@
                 <i class="fas fa-angle-double-right"></i></button>
             </form>
             <div id='value' style='visibility:{{value}};'>
-                {% if value == 'Negative' %}
+                {% if sentiment == 2 %}
                     <p style='color:red'>NEGATIVE</p>
-                {% elif value == 'Neutral' %} 
+                {% elif sentiment == 1 %} 
                     <p style='color:gray'>NEUTRAL</p>
                 {% else %}
                     <p style='color:green'>POSITIVE</p>
