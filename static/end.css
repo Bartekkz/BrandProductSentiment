@@ -7,7 +7,7 @@
 
 .wrapper {
   width: 100%;
-  padding: 10% 0%;
+  padding: 3% 0%;
   height: 100vh;
   background: linear-gradient(#36d1dc, #5b86e5);
   background-size: 200% 200%;
@@ -15,8 +15,25 @@
   animation: change 8s ease-in-out infinite;
 }
 
+.header {
+    padding-bottom: 3%;
+}
+
+.header h2 {
+    font-size: 4.5em;
+    font-family: 'Mansalva', cursive;
+    text-decoration: underline;
+}
 .main {
     margin: 0% 5% 0% 5% ;
+}
+
+.main p {
+    font-weight: 900;
+    padding: 1%;
+    font-family: 'Amatic SC', cursive;
+    color: #272e2e;
+    font-size: 1.5em;
 }
 
 .button {
@@ -25,7 +42,7 @@
     text-decoration: none;
     background: linear-gradient(-45deg, #36d1dc, #5b86e5);
     font-weight: 900;
-    width: 15%;
+    width: 20%;
     border: 2px solid #fff !important;
     border-radius: 50px;
     display: inline-block;
@@ -39,9 +56,28 @@
     transition: all 0.4s ease 0s;
 }
 
-.main p {
-    font-weight: 900;
-    padding: 1%;
-    font-family: 'Amatic SC', cursive;
-    color: #272e2e;
+#button {
+    padding: 8%;
+}
+
+@media only screen and (max-width: 414px){
+    .button {
+        width: 25%;
+    } 
+    .main p {
+        font-size:1.3em;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .button {
+        width: 10%;
+    }
+    .main p {
+        padding: 0%;
+        font-size: 1.8em;
+    }
+    #button {
+        padding: 4%;
+    }
 }

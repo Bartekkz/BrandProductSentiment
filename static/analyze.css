@@ -143,9 +143,33 @@ input:hover {
   font-weight: 900;
 }
 
+#button {
+    padding: 3%;
+}
+
 #file-upload-filename {
   color: #fff;
   font-family: 'Pernament Marker', cursive;
   font-weight: 900;
 }
 
+@media only screen and (max-width: 415px){
+    .button1 {
+        width: 30%;
+    } 
+}
+
+@media only screen and (min-width: 768px){
+    .button1 {
+        width: 15%;
+    } 
+}
+
+@media only screen and (min-width: 1200px){
+    .button1 {
+        width: 7%;
+    } 
+    #button {
+        padding: 1%;
+    }
+}
