@@ -28,8 +28,10 @@
             <div id='verdict' style='visibility:hidden;'>
             {% if pos > neg %}
                 <p>The most opinions about Your company are <stan style='color:green'>POSITIVE</stan>!</p> 
-            {% else %} 
+            {% elif neg > neu %} 
                 <p>The most opinions about Your company are <stan style='color:red'>NEGATIVE</stan>!</p> 
+            {% else %}
+                <p>The most opinions about Your company are <stan style='color:gray'>NEUTRAL</stan>!</p> 
             {% endif %}
             </div>
         </div>          
