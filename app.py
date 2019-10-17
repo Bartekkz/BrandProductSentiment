@@ -29,11 +29,15 @@ def index():
 def predict_tweet():
     data = request.get_json()
     if isinstance(data, str):
-        return data
+        #with graph.as_default():
+            #opinions, delta = predict(data, pipeline, model)  
+        opinions = [30, 30, 40]
+        delta = 11.04
+        return jsonify({'opinions':opinions, 'delta':delta})
     '''
     CODE:
     with graph.as_default():
-        prediction = predict(data, pipeline, model)  
+    prediction = predict(data, pipeline, model)  
     data = {'preds':prediction}
     return jsonify({'prediction':prediction})
     '''
@@ -59,7 +63,7 @@ def analyze():
 
 @app.route('/test')
 def test():
-    return render_template('test.html')
+    return render_template('test.html', value='hidden')
 
 
 @app.route('/test', methods=['POST'])
@@ -68,8 +72,12 @@ def get_text():
     text = request.form['textInp']
     data = json.dumps(text)
     r = requests.post(url, data=data, headers=headers)
+    print(len(r.json()))
+    print(type(r.json()))
+    print(list(r.json())[0])
+    print(r.json().keys())
     #return r.text
-    return render_template('test.html', value='Negative')
+    return render_template('test.html', value='visible')
 
 
 @app.route('/read', methods=['POST', 'GET'])    
