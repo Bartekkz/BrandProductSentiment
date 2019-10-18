@@ -113,7 +113,8 @@ if __name__ == '__main__':
 
 #TODO:
 '''
-    -add css for all kinds of devices
+    - change colors of sentiments
+    - add animation for analyze while model predicting
     - add navbar    
 '''
 
