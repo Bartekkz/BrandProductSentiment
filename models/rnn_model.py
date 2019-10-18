@@ -130,15 +130,16 @@ def build_attention_rnn(embeddings, classes, maxlen, layer_type=LSTM,
 def predict(tweet, pipeline, model):
     curr_time = time.time()
     pad = pipeline.transform(tweet) 
-    prediction = model.predict(pad)
+    prediction = model.predict(pad) 
+    print(prediction)
     preds = []
     for pred in prediction:
         if np.argmax(pred) == 2:
             preds.append('negative')
         elif np.argmax(pred) == 1:
-            preds.append('positive')
-        else:
             preds.append('neutral')
+        else:
+            preds.append('positive')
     delta = time.time() - curr_time
     opinions = sumSentiment(preds)
     return opinions, delta

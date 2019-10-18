@@ -5,6 +5,7 @@ import warnings
 warnings.filterwarnings('ignore')
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import pandas as pd   
+import tensorflow as tf
 import requests
 import json
 from keras.models import load_model
@@ -29,26 +30,20 @@ def index():
 def predict_tweet():
     data = request.get_json()
     if isinstance(data, str):
-        #with graph.as_default():
-            #opinions, delta = predict(data, pipeline, model)  
-        opinions = [30, 30, 40]
-        delta = 11.04
-        return jsonify({'opinions':opinions, 'delta':delta})
+        with graph.as_default():
+            opinions, delta = predict(data, pipeline, model)  
+            return jsonify(opinions)
     '''
     CODE:
     with graph.as_default():
     prediction = predict(data, pipeline, model)  
     data = {'preds':prediction}
     return jsonify({'prediction':prediction})
-    '''
-    #TODO:
-    #change predict method to sum up neutral, positive and negative tweet and return some number
-    tweets = list(data.values())
-    num = 0 
-    for tweet in tweets:
-        print(tweet)
-        num += 1
-    return jsonify(num) 
+    ''' 
+    data = list(data.values())
+    with graph.as_default():
+        opinions, delta = predict(data, pipeline, model)    
+        return jsonify(opinions) 
 
 
 @app.route('/end')
@@ -72,9 +67,7 @@ def get_text():
     text = request.form['textInp']
     data = json.dumps(text)
     r = requests.post(url, data=data, headers=headers) 
-    values = list(r.json().values())
-    delta = values[0]
-    sentiment = np.argmax(values[1])
+    sentiment = np.argmax(r.json())
     return render_template('test.html', value='visible', sentiment=sentiment)
 
 
@@ -89,10 +82,11 @@ def read_csv():
             if col_name in approved_col_names:
                 final_col = col_name
                 break
-        point = data[final_col][0:32]
+        point = data[final_col][0:100]
         data = point.to_json() 
         r = requests.post(url, data=data, headers=headers)
-        return render_template('end_csv.html', pos=60, neg=10, neu=30)
+        opinions = r.json() 
+        return render_template('end_csv.html', pos=opinions[0], neu=opinions[1], neg=opinions[2])
     except:
         print('fail')
         return render_template('analyze.html', error=f'Remember You can only load .csv file and it has to \
@@ -101,7 +95,6 @@ def read_csv():
 
 if __name__ == '__main__':
     url = 'http://localhost:5002/api/'
-    '''
     model_weights = os.path.abspath('data/model_weights/new_bi_model_1.h5')
     model = load_model(model_weights, custom_objects={'Attention':Attention()})
     global graph
@@ -114,7 +107,6 @@ if __name__ == '__main__':
         ('preprocessor', tweetsPreprocessor(load=False)),
         ('extractor', EmbExtractor(word_idxs=word_map, maxlen=MAXLEN))
     ])
-   '''
     app.run(debug=True, host='localhost', port=5002)
    
 
