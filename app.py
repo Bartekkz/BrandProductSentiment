@@ -73,6 +73,7 @@ def get_text():
 
 @app.route('/read', methods=['POST', 'GET'])    
 def read_csv():
+    print('reading')
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     approved_col_names = ['tweets', 'text', 'tweet', 'value', 'values', 'tweet_text', 'text_tweet']
     f = request.files.get('data_file')
@@ -82,7 +83,7 @@ def read_csv():
             if col_name in approved_col_names:
                 final_col = col_name
                 break
-        point = data[final_col][0:100]
+        point = data[final_col][0:110]
         data = point.to_json() 
         r = requests.post(url, data=data, headers=headers)
         opinions = r.json() 
