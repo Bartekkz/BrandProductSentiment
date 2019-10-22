@@ -87,6 +87,7 @@ def read_csv():
         data = point.to_json() 
         r = requests.post(url, data=data, headers=headers)
         opinions = r.json() 
+        opinions = [round(elem,2) for elem in opinions]
         return render_template('end_csv.html', pos=opinions[0], neu=opinions[1], neg=opinions[2])
     except:
         print('fail')
@@ -114,6 +115,7 @@ if __name__ == '__main__':
 
 #TODO:
 '''  
+    - place items a little bit towards top of the page
     - hide loader while going back to /analyze route
     - add navbar    
 
