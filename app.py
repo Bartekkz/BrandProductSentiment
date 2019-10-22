@@ -113,10 +113,10 @@ if __name__ == '__main__':
 
 
 #TODO:
-'''
-    - change colors of sentiments
-    - add animation for analyze while model predicting
+'''  
+    - hide loader while going back to /analyze route
     - add navbar    
+
 '''
 
 
