@@ -83,7 +83,7 @@ def read_csv():
             if col_name in approved_col_names:
                 final_col = col_name
                 break
-        point = data[final_col][0:110]
+        point = data[final_col][1100:1300]
         data = point.to_json() 
         r = requests.post(url, data=data, headers=headers)
         opinions = r.json() 
@@ -115,9 +115,7 @@ if __name__ == '__main__':
 
 #TODO:
 '''  
-    - place items a little bit towards top of the page
-    - add navbar    
-
+    - add docs for functions
 '''
 
 
