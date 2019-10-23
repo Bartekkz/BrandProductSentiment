@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css?family=Mansalva|Modak&display=swap" rel="stylesheet"> 
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>CheckYourCompany</title>
 </head>
 <body>
@@ -15,15 +16,15 @@
             <h2 style='color:white'>Score</h2>
         </div>
         <div class='main'>
-            <p id='demo' style='color:green; padding-bottom:1%;'>0%</p>
+            <p id='demo' style='color:green; padding-bottom:2%;'>0%</p>
             <div id="myBar" class="w3-container w3-green" style="height:24px;width:0%;
             border:2px solid white;
                border-radius: 50px; "></div>
-            <p id='demo1' style='color:gray; padding-bottom:1%;'>0%</p>
+            <p id='demo1' style='color:gray; padding-bottom:2%;'>0%</p>
             <div id="myBar1" class="w3-container w3-dark-gray" style="height:24px;width:0%;
             border:2px solid white;
                border-radius: 50px; "></div>
-            <p id='demo2' style='color:red; padding-bottom:1%;'>0%</p>
+            <p id='demo2' style='color:red; padding-bottom:2%;'>0%</p>
             <div id="myBar2" class="w3-container w3-red" style="height:24px;width:0%;border:2px solid white;
                border-radius: 50px; "></div>
             <div id='button'>
@@ -76,9 +77,17 @@ async function moveAll() {
             await sleep(1000);
         }
     }
-    var verdict = document.getElementById('verdict')
-    verdict.style.visibility = 'visible'
+    var verdict = document.getElementById('verdict');
+    verdict.style.visibility = 'visible';
+
+    jQuery(function($){
+	$('#result').load('analyze.html #loader');
+    var loader = document.getElementById('result');
+    console.log(loader);
+    });
 }
+
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

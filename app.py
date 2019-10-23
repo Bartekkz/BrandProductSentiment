@@ -116,7 +116,6 @@ if __name__ == '__main__':
 #TODO:
 '''  
     - place items a little bit towards top of the page
-    - hide loader while going back to /analyze route
     - add navbar    
 
 '''
