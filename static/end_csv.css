@@ -60,6 +60,39 @@
     padding: 8%;
 }
 
+
+.navbar {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.0em;
+    color: white;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 900;
+    padding-top: 3%;
+    padding-bottom: 5%;
+    background: transparent;
+}
+
+li {
+        display: inline-block;
+        padding: 2%;
+        background: transparent;
+        cursor: pointer;
+}
+
+.navbar li:hover {
+    color: pink;
+    transform: translate(0px, -10px) scale(1.4);
+}
+
+a {
+    background: transparent;
+    color: white; 
+    text-decoration: none;
+    color: inherit;
+}
+
 @media only screen and (max-width: 414px){
     .button {
         width: 25%;
