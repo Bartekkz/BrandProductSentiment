@@ -1,26 +1,51 @@
-tensorflow==1.14
-requests
-numpy
-ekphrasis==0.4.9
-Flask==1.1.1
-frozendict==1.2
-h5py==2.9.0
-itsdangerous==1.1.0
-Jinja2==2.10.3
-Keras==2.2.0
-Keras-Applications==1.0.2
-Keras-Preprocessing==1.0.1
-keras-utilities==0.5.0
-MarkupSafe==1.1.1
-nltk==3.2.4
-scipy==1.0.0
-pandas==0.25.2
-pip==9.0.1
-python-dateutil==2.8.0
-pytz==2019.3
-PyYAML==5.1.2
-setuptools==39.0.1
-six==1.12.0
-tqdm==4.19.4
-Werkzeug==0.16.0
-
+absl-py (0.8.1)
+astor (0.8.0)
+cachetools (2.0.1)
+certifi (2019.9.11)
+chardet (3.0.4)
+Click (7.0)
+colorama (0.4.1)
+ekphrasis (0.4.9)
+Flask (1.1.1)
+frozendict (1.2)
+ftfy (5.6)
+gast (0.3.2)
+google-pasta (0.1.7)
+grpcio (1.24.1)
+h5py (2.10.0)
+idna (2.8)
+itsdangerous (1.1.0)
+Jinja2 (2.10.3)
+joblib (0.14.0)
+Keras (2.2.0)
+Keras-Applications (1.0.7)
+Keras-Preprocessing (1.1.0)
+keras-utilities (0.5.0)
+Markdown (3.1.1)
+MarkupSafe (1.1.1)
+nltk (3.2.4)
+numpy (1.17.2)
+pandas (0.25.1)
+pip (9.0.1)
+pkg-resources (0.0.0)
+protobuf (3.10.0)
+python-dateutil (2.8.0)
+pytz (2019.3)
+PyYAML (5.1.2)
+requests (2.22.0)
+scikit-learn (0.21.3)
+scipy (1.0.0)
+setuptools (39.0.1)
+six (1.12.0)
+sklearn (0.0)
+tensorboard (1.14.0)
+tensorflow (1.14.0)
+tensorflow-estimator (1.14.0)
+termcolor (1.1.0)
+tqdm (4.19.4)
+ujson (1.35)
+urllib3 (1.25.6)
+wcwidth (0.1.7)
+Werkzeug (0.16.0)
+wheel (0.33.6)
+wrapt (1.11.2)
