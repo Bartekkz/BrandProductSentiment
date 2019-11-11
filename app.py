@@ -76,8 +76,8 @@ def read_csv():
             if col_name in approved_col_names:
                 final_col = col_name
                 break
-        point = data[final_col][1100:1300]
-        data = point.to_json() 
+        data = data[final_col]
+        data = data.to_json() 
         r = requests.post(url, data=data, headers=headers)
         opinions = r.json() 
         opinions = [round(elem,2) for elem in opinions]
