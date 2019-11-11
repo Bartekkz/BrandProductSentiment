@@ -33,13 +33,6 @@ def predict_tweet():
         with graph.as_default():
             opinions, delta = predict(data, pipeline, model)  
             return jsonify(opinions)
-    '''
-    CODE:
-    with graph.as_default():
-    prediction = predict(data, pipeline, model)  
-    data = {'preds':prediction}
-    return jsonify({'prediction':prediction})
-    ''' 
     data = list(data.values())
     with graph.as_default():
         opinions, delta = predict(data, pipeline, model)    
