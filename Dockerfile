@@ -1,23 +1,10 @@
-from python:3.6
+FROM python:3
 
+WORKDIR /usr/src/app
 
-RUN apt-get update -y && \
-    apt-get install -y python3-pip python3-dev
+COPY req.txt ./
+RUN pip install --no-cache-dir -r req.txt
 
+COPY . .
 
-WORKDIR /
-
-
-COPY . /
-
-
-RUN pip install --upgrade pip
-
-
-RUN pip3 install -r req.txt
-
-
-ENTRYPOINT ["python3"]
-
-
-CMD ["app.py"]
+CMD [ "python", "./app.py"  ]
